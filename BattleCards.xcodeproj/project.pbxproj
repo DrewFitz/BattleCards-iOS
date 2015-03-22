@@ -7,15 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A85928C1ABDDF88003A7EAE /* GameBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A85928B1ABDDF88003A7EAE /* GameBoard.m */; };
+		3A85928F1ABDE34E003A7EAE /* GameCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A85928E1ABDE34E003A7EAE /* GameCard.m */; };
+		3AD3758A1ABDEDDA002683B2 /* LightningCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD375891ABDEDDA002683B2 /* LightningCard.m */; };
+		3AD375901ABE0428002683B2 /* GameCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3758F1ABE0428002683B2 /* GameCardView.m */; };
 		3ADDD9031ABD235300BBA3D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADDD9021ABD235300BBA3D8 /* main.m */; };
 		3ADDD9061ABD235300BBA3D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADDD9051ABD235300BBA3D8 /* AppDelegate.m */; };
-		3ADDD9091ABD235300BBA3D8 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADDD9081ABD235300BBA3D8 /* GameScene.m */; };
-		3ADDD90B1ABD235300BBA3D8 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3ADDD90A1ABD235300BBA3D8 /* GameScene.sks */; };
-		3ADDD90E1ABD235300BBA3D8 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADDD90D1ABD235300BBA3D8 /* GameViewController.m */; };
 		3ADDD9111ABD235300BBA3D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ADDD90F1ABD235300BBA3D8 /* Main.storyboard */; };
 		3ADDD9131ABD235300BBA3D8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ADDD9121ABD235300BBA3D8 /* Images.xcassets */; };
 		3ADDD9161ABD235300BBA3D8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3ADDD9141ABD235300BBA3D8 /* LaunchScreen.xib */; };
 		3ADDD9221ABD235300BBA3D8 /* BattleCardsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADDD9211ABD235300BBA3D8 /* BattleCardsTests.m */; };
+		3ADDD92C1ABD26F100BBA3D8 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ADDD92B1ABD26F100BBA3D8 /* GameKit.framework */; };
+		3ADDD92F1ABD277800BBA3D8 /* BattleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADDD92E1ABD277800BBA3D8 /* BattleViewController.m */; };
+		3ADDD9321ABD2A9500BBA3D8 /* GridSlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADDD9311ABD2A9500BBA3D8 /* GridSlotView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,22 +33,30 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A85928A1ABDDF88003A7EAE /* GameBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBoard.h; sourceTree = "<group>"; };
+		3A85928B1ABDDF88003A7EAE /* GameBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBoard.m; sourceTree = "<group>"; };
+		3A85928D1ABDE34E003A7EAE /* GameCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCard.h; sourceTree = "<group>"; };
+		3A85928E1ABDE34E003A7EAE /* GameCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCard.m; sourceTree = "<group>"; };
+		3AD375881ABDEDDA002683B2 /* LightningCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightningCard.h; sourceTree = "<group>"; };
+		3AD375891ABDEDDA002683B2 /* LightningCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightningCard.m; sourceTree = "<group>"; };
+		3AD3758E1ABE0428002683B2 /* GameCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCardView.h; sourceTree = "<group>"; };
+		3AD3758F1ABE0428002683B2 /* GameCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCardView.m; sourceTree = "<group>"; };
 		3ADDD8FD1ABD235300BBA3D8 /* BattleCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BattleCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ADDD9011ABD235300BBA3D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3ADDD9021ABD235300BBA3D8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3ADDD9041ABD235300BBA3D8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3ADDD9051ABD235300BBA3D8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		3ADDD9071ABD235300BBA3D8 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
-		3ADDD9081ABD235300BBA3D8 /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
-		3ADDD90A1ABD235300BBA3D8 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		3ADDD90C1ABD235300BBA3D8 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
-		3ADDD90D1ABD235300BBA3D8 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		3ADDD9101ABD235300BBA3D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3ADDD9121ABD235300BBA3D8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3ADDD9151ABD235300BBA3D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		3ADDD91B1ABD235300BBA3D8 /* BattleCardsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BattleCardsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ADDD9201ABD235300BBA3D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3ADDD9211ABD235300BBA3D8 /* BattleCardsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BattleCardsTests.m; sourceTree = "<group>"; };
+		3ADDD92B1ABD26F100BBA3D8 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		3ADDD92D1ABD277800BBA3D8 /* BattleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BattleViewController.h; sourceTree = "<group>"; };
+		3ADDD92E1ABD277800BBA3D8 /* BattleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BattleViewController.m; sourceTree = "<group>"; };
+		3ADDD9301ABD2A9500BBA3D8 /* GridSlotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridSlotView.h; sourceTree = "<group>"; };
+		3ADDD9311ABD2A9500BBA3D8 /* GridSlotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridSlotView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3ADDD92C1ABD26F100BBA3D8 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,9 +78,60 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3AD375861ABDED87002683B2 /* Game Cards */ = {
+			isa = PBXGroup;
+			children = (
+				3AD375881ABDEDDA002683B2 /* LightningCard.h */,
+				3AD375891ABDEDDA002683B2 /* LightningCard.m */,
+			);
+			name = "Game Cards";
+			sourceTree = "<group>";
+		};
+		3AD375871ABDED95002683B2 /* Gameplay Objects */ = {
+			isa = PBXGroup;
+			children = (
+				3A85928A1ABDDF88003A7EAE /* GameBoard.h */,
+				3A85928B1ABDDF88003A7EAE /* GameBoard.m */,
+				3A85928D1ABDE34E003A7EAE /* GameCard.h */,
+				3A85928E1ABDE34E003A7EAE /* GameCard.m */,
+				3AD375861ABDED87002683B2 /* Game Cards */,
+			);
+			name = "Gameplay Objects";
+			sourceTree = "<group>";
+		};
+		3AD3758B1ABE03AA002683B2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3ADDD9301ABD2A9500BBA3D8 /* GridSlotView.h */,
+				3ADDD9311ABD2A9500BBA3D8 /* GridSlotView.m */,
+				3AD3758E1ABE0428002683B2 /* GameCardView.h */,
+				3AD3758F1ABE0428002683B2 /* GameCardView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		3AD3758C1ABE03BB002683B2 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3ADDD92D1ABD277800BBA3D8 /* BattleViewController.h */,
+				3ADDD92E1ABD277800BBA3D8 /* BattleViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		3AD3758D1ABE03C5002683B2 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				3ADDD9041ABD235300BBA3D8 /* AppDelegate.h */,
+				3ADDD9051ABD235300BBA3D8 /* AppDelegate.m */,
+			);
+			name = Delegates;
+			sourceTree = "<group>";
+		};
 		3ADDD8F41ABD235300BBA3D8 = {
 			isa = PBXGroup;
 			children = (
+				3ADDD92B1ABD26F100BBA3D8 /* GameKit.framework */,
 				3ADDD8FF1ABD235300BBA3D8 /* BattleCards */,
 				3ADDD91E1ABD235300BBA3D8 /* BattleCardsTests */,
 				3ADDD8FE1ABD235300BBA3D8 /* Products */,
@@ -86,16 +150,13 @@
 		3ADDD8FF1ABD235300BBA3D8 /* BattleCards */ = {
 			isa = PBXGroup;
 			children = (
-				3ADDD9041ABD235300BBA3D8 /* AppDelegate.h */,
-				3ADDD9051ABD235300BBA3D8 /* AppDelegate.m */,
-				3ADDD9071ABD235300BBA3D8 /* GameScene.h */,
-				3ADDD9081ABD235300BBA3D8 /* GameScene.m */,
-				3ADDD90A1ABD235300BBA3D8 /* GameScene.sks */,
-				3ADDD90C1ABD235300BBA3D8 /* GameViewController.h */,
-				3ADDD90D1ABD235300BBA3D8 /* GameViewController.m */,
-				3ADDD90F1ABD235300BBA3D8 /* Main.storyboard */,
-				3ADDD9121ABD235300BBA3D8 /* Images.xcassets */,
 				3ADDD9141ABD235300BBA3D8 /* LaunchScreen.xib */,
+				3ADDD90F1ABD235300BBA3D8 /* Main.storyboard */,
+				3AD3758D1ABE03C5002683B2 /* Delegates */,
+				3AD3758C1ABE03BB002683B2 /* Controllers */,
+				3AD3758B1ABE03AA002683B2 /* Views */,
+				3AD375871ABDED95002683B2 /* Gameplay Objects */,
+				3ADDD9121ABD235300BBA3D8 /* Images.xcassets */,
 				3ADDD9001ABD235300BBA3D8 /* Supporting Files */,
 			);
 			path = BattleCards;
@@ -176,6 +237,12 @@
 				TargetAttributes = {
 					3ADDD8FC1ABD235300BBA3D8 = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = 97H56TQ95G;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+						};
 					};
 					3ADDD91A1ABD235300BBA3D8 = {
 						CreatedOnToolsVersion = 6.2;
@@ -209,7 +276,6 @@
 			files = (
 				3ADDD9161ABD235300BBA3D8 /* LaunchScreen.xib in Resources */,
 				3ADDD9131ABD235300BBA3D8 /* Images.xcassets in Resources */,
-				3ADDD90B1ABD235300BBA3D8 /* GameScene.sks in Resources */,
 				3ADDD9111ABD235300BBA3D8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,10 +294,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3ADDD90E1ABD235300BBA3D8 /* GameViewController.m in Sources */,
+				3AD3758A1ABDEDDA002683B2 /* LightningCard.m in Sources */,
 				3ADDD9061ABD235300BBA3D8 /* AppDelegate.m in Sources */,
-				3ADDD9091ABD235300BBA3D8 /* GameScene.m in Sources */,
+				3AD375901ABE0428002683B2 /* GameCardView.m in Sources */,
+				3ADDD9321ABD2A9500BBA3D8 /* GridSlotView.m in Sources */,
+				3A85928F1ABDE34E003A7EAE /* GameCard.m in Sources */,
 				3ADDD9031ABD235300BBA3D8 /* main.m in Sources */,
+				3A85928C1ABDDF88003A7EAE /* GameBoard.m in Sources */,
+				3ADDD92F1ABD277800BBA3D8 /* BattleViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,9 +425,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = BattleCards/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -365,9 +438,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = BattleCards/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -424,6 +500,7 @@
 				3ADDD9271ABD235300BBA3D8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3ADDD9281ABD235300BBA3D8 /* Build configuration list for PBXNativeTarget "BattleCardsTests" */ = {
 			isa = XCConfigurationList;
@@ -432,6 +509,7 @@
 				3ADDD92A1ABD235300BBA3D8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
