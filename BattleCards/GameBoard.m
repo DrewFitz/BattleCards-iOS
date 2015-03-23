@@ -50,25 +50,42 @@
     return playerOffset + rowOffset;
 }
 
+-(BOOL) isValidSlot:(int)slot {
+    return slot >= 0 && slot < 4;
+}
+
 -(GameCard *)getCardForPlayer:(GameBoardPlayer)player inRow:(GameBoardRow)row slot:(int)slot {
+    if (![self isValidSlot:slot]) {
+        return nil;
+    }
     int offset = [self getOffsetWithPlayer:player row:row];
    
     return gameBoardCards[offset + slot];
 }
 
 -(void)setCard:(GameCard *)card forPlayer:(GameBoardPlayer)player inRow:(GameBoardRow)row slot:(int)slot {
+    if (![self isValidSlot:slot]) {
+        return;
+    }
+    
     int offset = [self getOffsetWithPlayer:player row:row];
     
     gameBoardCards[offset + slot] = card;
 }
 
 -(GameBoardSlotState)getStateForPlayer:(GameBoardPlayer)player inRow:(GameBoardRow)row slot:(int)slot {
+    if (![self isValidSlot:slot]) {
+        return GameBoardSlotStateError;
+    }
     int offset = [self getOffsetWithPlayer:player row:row];
    
     return gameBoardStates[offset + slot];
 }
 
 -(void)setState:(GameBoardSlotState)state forPlayer:(GameBoardPlayer)player inRow:(GameBoardRow)row slot:(int)slot {
+    if (![self isValidSlot:slot]) {
+        return;
+    }
     int offset = [self getOffsetWithPlayer:player row:row];
     
     gameBoardStates[offset + slot] = state;

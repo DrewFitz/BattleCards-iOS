@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "GameCard.h"
 
-typedef enum : NSUInteger {
+typedef enum : NSInteger {
+    GameBoardSlotStateError = -1,       // out of bounds slot
     GameBoardSlotStateEmpty = 0,        // no card
     GameBoardSlotStateActive,           // unresolved card
     GameboardSlotStateInactive,         // resolved card (full slot)
