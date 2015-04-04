@@ -10,6 +10,8 @@
 
 @implementation GridSlotView
 
+@synthesize targetView = _targetView;
+
 -(instancetype)init {
     self = [super init];
     
@@ -19,6 +21,19 @@
     }
     
     return self;
+}
+
+-(void)setTargetView:(UIView *)targetView {
+    CGRect frame = self.frame;
+    
+    _targetView = targetView;
+    
+    [_targetView setFrame:frame];
+}
+
+-(void)setFrame:(CGRect)frame {
+    [super setFrame:frame];
+    [_targetView setFrame:frame];
 }
 
 @end

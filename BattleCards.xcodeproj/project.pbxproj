@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3A85928C1ABDDF88003A7EAE /* GameBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A85928B1ABDDF88003A7EAE /* GameBoard.m */; };
 		3A85928F1ABDE34E003A7EAE /* GameCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A85928E1ABDE34E003A7EAE /* GameCard.m */; };
+		3AD056DA1AD05D9B00E08358 /* NullCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD056D91AD05D9B00E08358 /* NullCard.m */; };
 		3AD3758A1ABDEDDA002683B2 /* LightningCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD375891ABDEDDA002683B2 /* LightningCard.m */; };
 		3AD375901ABE0428002683B2 /* GameCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3758F1ABE0428002683B2 /* GameCardView.m */; };
 		3ADDD9031ABD235300BBA3D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADDD9021ABD235300BBA3D8 /* main.m */; };
@@ -37,6 +38,8 @@
 		3A85928B1ABDDF88003A7EAE /* GameBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBoard.m; sourceTree = "<group>"; };
 		3A85928D1ABDE34E003A7EAE /* GameCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCard.h; sourceTree = "<group>"; };
 		3A85928E1ABDE34E003A7EAE /* GameCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCard.m; sourceTree = "<group>"; };
+		3AD056D81AD05D9B00E08358 /* NullCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullCard.h; sourceTree = "<group>"; };
+		3AD056D91AD05D9B00E08358 /* NullCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullCard.m; sourceTree = "<group>"; };
 		3AD375881ABDEDDA002683B2 /* LightningCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightningCard.h; sourceTree = "<group>"; };
 		3AD375891ABDEDDA002683B2 /* LightningCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightningCard.m; sourceTree = "<group>"; };
 		3AD3758E1ABE0428002683B2 /* GameCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCardView.h; sourceTree = "<group>"; };
@@ -83,6 +86,8 @@
 			children = (
 				3AD375881ABDEDDA002683B2 /* LightningCard.h */,
 				3AD375891ABDEDDA002683B2 /* LightningCard.m */,
+				3AD056D81AD05D9B00E08358 /* NullCard.h */,
+				3AD056D91AD05D9B00E08358 /* NullCard.m */,
 			);
 			name = "Game Cards";
 			sourceTree = "<group>";
@@ -302,6 +307,7 @@
 				3ADDD9031ABD235300BBA3D8 /* main.m in Sources */,
 				3A85928C1ABDDF88003A7EAE /* GameBoard.m in Sources */,
 				3ADDD92F1ABD277800BBA3D8 /* BattleViewController.m in Sources */,
+				3AD056DA1AD05D9B00E08358 /* NullCard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,4 +13,6 @@
 @property (nonatomic) int gridX;
 @property (nonatomic) int gridY;
 
+@property (weak, nonatomic) UIView* targetView;
+
 @end

@@ -34,12 +34,21 @@ typedef enum : NSUInteger {
     GameBoardTurnOrderLocalSecond
 } GameBoardTurnOrder;
 
+@class GameBoard;
+
+@protocol GameBoardDelegate <NSObject>
+
+@optional
+-(void)gameBoardDidChange:(GameBoard*)board;
+
+@end
 
 @interface GameBoard : NSObject
 
 + (instancetype)sharedBoard;
 
 @property (nonatomic) GameBoardTurnOrder turnOrder;
+@property (weak, nonatomic) id<GameBoardDelegate> delegate;
 
 -(GameCard*) getCardForPlayer:(GameBoardPlayer)player inRow:(GameBoardRow)row slot:(int)slot;
 -(void) setCard:(GameCard*)card forPlayer:(GameBoardPlayer)player inRow:(GameBoardRow)row slot:(int)slot;
@@ -47,4 +56,7 @@ typedef enum : NSUInteger {
 -(GameBoardSlotState) getStateForPlayer:(GameBoardPlayer)player inRow:(GameBoardRow)row slot:(int)slot;
 -(void) setState:(GameBoardSlotState)state forPlayer:(GameBoardPlayer)player inRow:(GameBoardRow)row slot:(int)slot;
 
+-(void)resolveBoard;
+
 @end
+

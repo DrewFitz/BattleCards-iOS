@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BV1-FR-VrT">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
@@ -18,17 +18,29 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <connections>
-                            <outletCollection property="gestureRecognizers" destination="EoB-6A-u8Q" appends="YES" id="EDa-yJ-Tg4"/>
+                            <outletCollection property="gestureRecognizers" destination="ghw-fZ-2HS" appends="YES" id="qeH-JD-bVQ"/>
+                            <outletCollection property="gestureRecognizers" destination="hgz-5D-ad6" appends="YES" id="kLn-qI-QGz"/>
+                            <outletCollection property="gestureRecognizers" destination="PMe-BY-vpG" appends="YES" id="WLp-Fc-wgy"/>
                         </connections>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer cancelsTouchesInView="NO" minimumNumberOfTouches="1" id="EoB-6A-u8Q">
+                <swipeGestureRecognizer direction="down" numberOfTouchesRequired="2" id="ghw-fZ-2HS" userLabel="Down Swipe Gesture Recognizer">
                     <connections>
-                        <action selector="panGestureAction:" destination="BV1-FR-VrT" id="ko2-Y5-Eoe"/>
+                        <action selector="downSwipeEvent:" destination="BV1-FR-VrT" id="HjH-eA-MhJ"/>
                     </connections>
-                </panGestureRecognizer>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="up" numberOfTouchesRequired="2" id="hgz-5D-ad6" userLabel="Up Swipe Gesture Recognizer">
+                    <connections>
+                        <action selector="upSwipeEvent:" destination="BV1-FR-VrT" id="ZXw-yR-LIt"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <tapGestureRecognizer id="PMe-BY-vpG">
+                    <connections>
+                        <action selector="tapEvent:" destination="BV1-FR-VrT" id="wVy-Zo-Psn"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="591" y="918"/>
         </scene>

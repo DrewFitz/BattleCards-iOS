@@ -19,12 +19,14 @@
 }
 
 -(void) setupViews {
+    self.backgroundColor = [UIColor whiteColor];
+    
     self.iconView = [[UIImageView alloc] init];
     self.scoreView = [[UILabel alloc] init];
     
     CGRect frame = self.frame;
     
-    frame.origin = CGPointMake(0, 0);
+    frame.origin = CGPointZero;
     
     self.iconView.frame = frame;
     self.scoreView.frame = frame;
@@ -61,6 +63,15 @@
         [self setupViews];
     }
     return self;
+}
+
+-(void)setFrame:(CGRect)frame {
+    [super setFrame:frame];
+    
+    frame.origin = CGPointZero;
+    
+    self.iconView.frame = frame;
+    self.scoreView.frame = frame;
 }
 
 -(void)setGameCard:(GameCard *)card {

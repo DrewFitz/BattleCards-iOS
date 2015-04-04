@@ -7,6 +7,7 @@
 //
 
 #import "GameBoard.h"
+#import "NullCard.h"
 
 
 @implementation GameBoard {
@@ -32,6 +33,99 @@
         }
     }
     return self;
+}
+
+-(BOOL)resolvePlayer{
+    BOOL doResolve = NO;
+    BOOL dirty = NO;
+    do {
+        doResolve = NO;
+        int slot = 0;
+        int maxPriority = 0;
+        for (int i = 0; i < 4; i++) {
+            GameBoardSlotState state = [self getStateForPlayer:GameBoardPlayerLocal inRow:GameBoardRowAction slot:i];
+            if (state == GameBoardSlotStateActive) {
+                GameCard* card = [self getCardForPlayer:GameBoardPlayerLocal inRow:GameBoardRowAction slot:i];
+                if ([card canActivateInSlot:i]) {
+                    if (card.priority > maxPriority) {
+                        doResolve = YES;
+                        maxPriority = card.priority;
+                        slot = i;
+                    }   
+                }
+            }
+        }
+        if (doResolve) {
+            GameCard* card = [self getCardForPlayer:GameBoardPlayerLocal inRow:GameBoardRowAction slot:slot];
+            [self setState:GameboardSlotStateInactive forPlayer:GameBoardPlayerLocal inRow:GameBoardRowAction slot:slot];
+            [card activateInSlot:slot];
+            dirty = YES;
+        }
+    } while (doResolve);
+    
+    return dirty;
+}
+
+-(BOOL)resolveEnemy{
+    BOOL doResolve = NO;
+    BOOL dirty = NO;
+    do {
+        doResolve = NO;
+        int slot = 0;
+        int maxPriority = 0;
+        for (int i = 0; i < 4; i++) {
+            GameBoardSlotState state = [self getStateForPlayer:GameBoardPlayerOpponent inRow:GameBoardRowAction slot:i];
+            if (state == GameBoardSlotStateActive) {
+                GameCard* card = [self getCardForPlayer:GameBoardPlayerOpponent inRow:GameBoardRowAction slot:i];
+                if ([card canRespondToActionInSlot:i]) {
+                    if (card.priority > maxPriority) {
+                        doResolve = YES;
+                        maxPriority = card.priority;
+                        slot = i;
+                    }   
+                }
+            }
+        }
+        if (doResolve) {
+            GameCard* card = [self getCardForPlayer:GameBoardPlayerOpponent inRow:GameBoardRowAction slot:slot];
+            [self setState:GameboardSlotStateInactive forPlayer:GameBoardPlayerOpponent inRow:GameBoardRowAction slot:slot];
+            [card respondToActionInSlot:slot];
+            dirty = YES;
+        }
+    } while (doResolve);
+    
+    return dirty;
+}
+
+-(void)resolveBoard {
+    // allow cards to update state
+    BOOL wasDirty = NO;
+    BOOL firstLoop = YES;
+    do {
+        wasDirty = [self resolvePlayer];
+        if (wasDirty || firstLoop) {
+            wasDirty = [self resolveEnemy];
+        }
+        firstLoop = NO;
+    } while (wasDirty);
+    
+    for (int i = 0; i < 16; i++) {
+        GameBoardSlotState state = gameBoardStates[i];
+        switch (state) {
+            case GameBoardSlotStateWillBeEmptied:
+                gameBoardStates[i] = GameBoardSlotStateEmpty;
+                gameBoardCards[i] = nil;
+                break;
+                
+            case GameBoardSlotStateWillBeNull:
+                gameBoardStates[i] = GameboardSlotStateInactive;
+                gameBoardCards[i] = [[NullCard alloc] init];
+                break;
+                
+            default:
+                break;
+        }
+    }
 }
 
 -(int) getOffsetWithPlayer:(GameBoardPlayer)player row:(GameBoardRow)row {
@@ -71,6 +165,10 @@
     int offset = [self getOffsetWithPlayer:player row:row];
     
     gameBoardCards[offset + slot] = card;
+    
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(gameBoardDidChange:)]) {
+        [self.delegate gameBoardDidChange:self];
+    }
 }
 
 -(GameBoardSlotState)getStateForPlayer:(GameBoardPlayer)player inRow:(GameBoardRow)row slot:(int)slot {
@@ -89,6 +187,10 @@
     int offset = [self getOffsetWithPlayer:player row:row];
     
     gameBoardStates[offset + slot] = state;
+    
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(gameBoardDidChange:)]) {
+        [self.delegate gameBoardDidChange:self];
+    }
 }
 
 @end

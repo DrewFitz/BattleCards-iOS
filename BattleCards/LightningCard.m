@@ -43,8 +43,21 @@
     }
 }
 
+-(BOOL)canRespondToActionInSlot:(int)slot {
+    GameBoardSlotState targetState = [[GameBoard sharedBoard] getStateForPlayer:GameBoardPlayerLocal inRow:GameBoardRowScore slot:slot];
+    if (targetState != GameBoardSlotStateEmpty) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 -(void)activateInSlot:(int)slot {
     [[GameBoard sharedBoard] setState:GameBoardSlotStateWillBeEmptied forPlayer:GameBoardPlayerOpponent inRow:GameBoardRowScore slot:slot];
+}
+
+-(void)respondToActionInSlot:(int)slot {
+    [[GameBoard sharedBoard] setState:GameBoardSlotStateWillBeEmptied forPlayer:GameBoardPlayerLocal inRow:GameBoardRowScore slot:slot];
 }
 
 @end

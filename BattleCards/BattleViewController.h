@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GameBoard.h"
 
-@interface BattleViewController : UIViewController
+@interface BattleViewController : UIViewController <GameBoardDelegate, UIGestureRecognizerDelegate>
+
+- (IBAction)downSwipeEvent:(id)sender;
+- (IBAction)upSwipeEvent:(id)sender;
+- (IBAction)tapEvent:(id)sender;
 
 @end
