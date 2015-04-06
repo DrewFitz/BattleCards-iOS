@@ -7,12 +7,12 @@
 //
 
 #import "GameBoard.h"
-#import "NullCard.h"
-
+#import "GameCardTypes.h"
 
 @implementation GameBoard {
     GameBoardSlotState gameBoardStates[16];
     GameCard* gameBoardCards[16];
+    NSArray* cardClasses;
 }
 
 + (instancetype)sharedBoard {
@@ -23,17 +23,51 @@
     return sharedBoard;
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         for (int i = 0; i < 16; i++) {
             gameBoardStates[i] = GameBoardSlotStateEmpty;
             gameBoardCards[i] = nil;
         }
+        // TODO: fix player order loading
+        self.turnOrder = GameBoardTurnOrderLocalFirst;
+        [self loadCardClasses];
     }
     return self;
 }
+
+
+#pragma mark - Helper methods
+
+-(void)loadCardClasses {
+    cardClasses = @[[NullCard class],
+                    [LightningCard class],
+                    [HeartCard class]];
+}
+
+-(int) getOffsetWithPlayer:(GameBoardPlayer)player row:(GameBoardRow)row {
+    int playerOffset = 0;
+    if (player == GameBoardPlayerLocal && self.turnOrder == GameBoardTurnOrderLocalSecond) {
+        playerOffset = 8;
+    } else if (player == GameBoardPlayerOpponent && self.turnOrder == GameBoardTurnOrderLocalFirst) {
+        playerOffset = 8;
+    }
+    
+    int rowOffset = 0;
+    if (row == GameBoardRowScore) {
+        rowOffset = 4;
+    }
+    
+    return playerOffset + rowOffset;
+}
+
+-(BOOL) isValidSlot:(int)slot {
+    return slot >= 0 && slot < 4;
+}
+
+
+#pragma mark - Turn Resolution
 
 -(BOOL)resolvePlayer{
     BOOL doResolve = NO;
@@ -51,7 +85,7 @@
                         doResolve = YES;
                         maxPriority = card.priority;
                         slot = i;
-                    }   
+                    }
                 }
             }
         }
@@ -82,7 +116,7 @@
                         doResolve = YES;
                         maxPriority = card.priority;
                         slot = i;
-                    }   
+                    }
                 }
             }
         }
@@ -109,6 +143,7 @@
         firstLoop = NO;
     } while (wasDirty);
     
+    // empty/null cards that are left
     for (int i = 0; i < 16; i++) {
         GameBoardSlotState state = gameBoardStates[i];
         switch (state) {
@@ -128,25 +163,8 @@
     }
 }
 
--(int) getOffsetWithPlayer:(GameBoardPlayer)player row:(GameBoardRow)row {
-    int playerOffset = 0;
-    if (player == GameBoardPlayerLocal && self.turnOrder == GameBoardTurnOrderLocalSecond) {
-        playerOffset = 8;
-    } else if (player == GameBoardPlayerOpponent && self.turnOrder == GameBoardTurnOrderLocalFirst) {
-        playerOffset = 8;
-    }
-    
-    int rowOffset = 0;
-    if (row == GameBoardRowScore) {
-        rowOffset = 4;
-    }
-    
-    return playerOffset + rowOffset;
-}
 
--(BOOL) isValidSlot:(int)slot {
-    return slot >= 0 && slot < 4;
-}
+#pragma mark - Accessor API
 
 -(GameCard *)getCardForPlayer:(GameBoardPlayer)player inRow:(GameBoardRow)row slot:(int)slot {
     if (![self isValidSlot:slot]) {
@@ -190,6 +208,43 @@
     
     if (self.delegate != nil && [self.delegate respondsToSelector:@selector(gameBoardDidChange:)]) {
         [self.delegate gameBoardDidChange:self];
+    }
+}
+
+#pragma mark - Data transfer
+
+-(NSData *)boardData {
+    NSMutableData* data = [[NSMutableData alloc] init];
+    
+    [data appendBytes:gameBoardStates length:sizeof(gameBoardStates)];
+    
+    NSUInteger cardIDs[16];
+    for (int i = 0; i < 16; i++) {
+        GameCard* card = gameBoardCards[i];
+        if (card) {
+            NSUInteger index = [cardClasses indexOfObject:[card class]];
+            cardIDs[i] = index;
+        } else {
+            NSUInteger index = [cardClasses indexOfObject:[NullCard class]];
+            cardIDs[i] = index;
+        }
+    }
+    [data appendBytes:cardIDs length:sizeof(cardIDs)];
+    
+    return data;
+}
+
+-(void)loadData:(NSData*)data {
+    [data getBytes:gameBoardStates length:sizeof(gameBoardStates)];
+    
+    NSUInteger cardIDs[16];
+    NSData* cardData = [data subdataWithRange:NSMakeRange(sizeof(gameBoardStates), sizeof(cardIDs))];
+    [cardData getBytes:cardIDs length:sizeof(cardIDs)];
+    
+    for (int i = 0; i < 16; i++) {
+        NSUInteger index = cardIDs[i];
+        Class cardClass = [cardClasses objectAtIndex:index];
+        gameBoardCards[i] = [[cardClass alloc] init];
     }
 }
 

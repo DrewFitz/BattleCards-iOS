@@ -9,7 +9,10 @@
 #import "BattleViewController.h"
 #import "GridSlotView.h"
 #import "GameCardView.h"
+
+// temporary for testing
 #import "LightningCard.h"
+#import "HeartCard.h"
 
 @interface BattleViewController ()
 
@@ -17,16 +20,14 @@
 
 @implementation BattleViewController {
     GridSlotView* gridSlotViews[16];
-    GameCardView* gridCardViews[16];
-    
     GridSlotView* handSlotViews[5];
-    GameCardView* handCardViews[5];
     
-    GameCardView* currentDraggingView;
     GridSlotView* hilightedSlot;
     GridSlotView* oldSlot;
     
-    GridSlotView* spacerView;
+    UIView* spacerView;
+    
+    GameCardView* currentDraggingView;
     
     UITouch* draggingTouch;
 }
@@ -55,8 +56,10 @@
         return closestSlot;
     }
     
-    for (int i = 0; i < 16; i++) {
+    for (int i = 8; i < 16; i++) {
         GridSlotView* slot = gridSlotViews[i];
+        
+        
         GameCardView* view = (GameCardView*) slot.targetView;
         if (view == nil) {
             continue;
@@ -69,10 +72,24 @@
         
     }
     
+    GameBoardRow row = closestSlot.gridY == 2 ? GameBoardRowAction : GameBoardRowScore;
+    GameBoardSlotState state = [[GameBoard sharedBoard] getStateForPlayer:GameBoardPlayerLocal inRow:row slot:closestSlot.gridX];
+    if (state == GameboardSlotStateInactive) {
+        return nil;;
+    }
+    
     return closestSlot;
 }
 
 -(void)drawHand {
+    for (int i = 0; i < 5; i++) {
+        UIView* view = handSlotViews[i].targetView;
+        if (view) {
+            [view removeFromSuperview];
+            handSlotViews[i].targetView = nil;
+        }
+    }
+    
     GameCard* cardType = [[LightningCard alloc] init];
     GameCardView* newCard = [[GameCardView alloc] init];
     [self.view addSubview:newCard];
@@ -88,9 +105,21 @@
     [self.view addSubview:newCard];
     [newCard setGameCard:cardType];
     [handSlotViews[4] setTargetView:newCard];
+    
+    cardType = [[HeartCard alloc] init];
+    
+    newCard = [[GameCardView alloc] init];
+    [self.view addSubview:newCard];
+    [newCard setGameCard:cardType];
+    [handSlotViews[1] setTargetView:newCard];
+    
+    newCard = [[GameCardView alloc] init];
+    [self.view addSubview:newCard];
+    [newCard setGameCard:cardType];
+    [handSlotViews[3] setTargetView:newCard];
 }
 
--(void)commitTurn {
+-(void)writeToGameBoard {
     GameBoard* board = [GameBoard sharedBoard];
     
     // actions
@@ -120,18 +149,97 @@
     }
 }
 
+-(void)reloadBoard {
+    for (int i = 0; i < 16; i++) {
+        UIView* view = gridSlotViews[i].targetView;
+        if (view) {
+            [view removeFromSuperview];
+            gridSlotViews[i].targetView = nil;
+        }
+    }
+    
+    GameBoard* board = [GameBoard sharedBoard];
+    
+    // opponent score
+    for (int i = 0; i < 4; i++) {
+        GameBoardSlotState state = [board getStateForPlayer:GameBoardPlayerOpponent inRow:GameBoardRowScore slot:i%4];
+        if (state != GameBoardSlotStateEmpty) {
+            GameCardView* view = [[GameCardView alloc] init];
+            GameCard* card = [board getCardForPlayer:GameBoardPlayerOpponent inRow:GameBoardRowScore slot:i%4];
+            [view setGameCard:card];
+            [view showScore];
+            [self.view addSubview:view];
+            gridSlotViews[i].targetView = view;
+        }
+    }
+    // opponent action
+    for (int i = 4; i < 8; i++) {
+        GameBoardSlotState state = [board getStateForPlayer:GameBoardPlayerOpponent inRow:GameBoardRowAction slot:i%4];
+        if (state != GameBoardSlotStateEmpty) {
+            GameCardView* view = [[GameCardView alloc] init];
+            GameCard* card = [board getCardForPlayer:GameBoardPlayerOpponent inRow:GameBoardRowAction slot:i%4];
+            [view setGameCard:card];
+            [view showIcon];
+            [self.view addSubview:view];
+            gridSlotViews[i].targetView = view;
+        }
+    }
+    // player action
+    for (int i = 8; i < 12; i++) {
+        GameBoardSlotState state = [board getStateForPlayer:GameBoardPlayerLocal inRow:GameBoardRowAction slot:i%4];
+        if (state != GameBoardSlotStateEmpty) {
+            GameCardView* view = [[GameCardView alloc] init];
+            GameCard* card = [board getCardForPlayer:GameBoardPlayerLocal inRow:GameBoardRowAction slot:i%4];
+            [view setGameCard:card];
+            [view showIcon];
+            [self.view addSubview:view];
+            gridSlotViews[i].targetView = view;
+        }
+    }
+    // player score
+    for (int i = 12; i < 16; i++) {
+        GameBoardSlotState state = [board getStateForPlayer:GameBoardPlayerLocal inRow:GameBoardRowScore slot:i%4];
+        if (state != GameBoardSlotStateEmpty) {
+            GameCardView* view = [[GameCardView alloc] init];
+            GameCard* card = [board getCardForPlayer:GameBoardPlayerLocal inRow:GameBoardRowScore slot:i%4];
+            [view setGameCard:card];
+            [view showScore];
+            [self.view addSubview:view];
+            gridSlotViews[i].targetView = view;
+        }
+    }
+}
 
-#pragma mark - UIGestureRecognizerDelegate protocol
-
--(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    // TODO: handle gestures only for compact view sizes
-    return NO;
+-(void)endTurn {
+    // write our data from UI into the model
+    [self writeToGameBoard];
+    
+    // tell model to process changes
+    [self.match commitTurn];
+    
+    // tell delegate that turn ended
+//    if(self.delegate)[self.delegate didEndTurn];
+    
+    [self reloadBoard];
+    [self drawHand];
 }
 
 
 #pragma mark - Touch Handling
 
+- (IBAction)pinchEvent:(id)sender {
+    UIPinchGestureRecognizer* pg = (UIPinchGestureRecognizer*)sender;
+    if (pg && [pg scale] < 0.5) {
+        [pg setEnabled:NO];
+        [pg setEnabled:YES];
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
 - (IBAction)downSwipeEvent:(id)sender {
+    NSLog(@"swipe down");
+    //[self.view setUserInteractionEnabled:NO];
+    [self endTurn];
 }
 
 - (IBAction)upSwipeEvent:(id)sender {
@@ -351,12 +459,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [GameBoard sharedBoard].delegate = self;
-    
     [self allocateBoardViews];
     [self layoutBoardViews];
     
     [self drawHand];
+    
+    [self.match makeActiveMatch];
+    
+    [self reloadBoard];
 }
 
 -(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {

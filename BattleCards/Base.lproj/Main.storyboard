@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ls2-5w-UAt">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <scenes>
-        <!--Battle View Controller-->
+        <!--Battle-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="BattleViewController" sceneMemberID="viewController">
+                <viewController title="Battle" id="BV1-FR-VrT" customClass="BattleViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="maK-i9-Uhn"/>
                         <viewControllerLayoutGuide type="bottom" id="khH-OB-KpY"/>
@@ -21,6 +21,7 @@
                             <outletCollection property="gestureRecognizers" destination="ghw-fZ-2HS" appends="YES" id="qeH-JD-bVQ"/>
                             <outletCollection property="gestureRecognizers" destination="hgz-5D-ad6" appends="YES" id="kLn-qI-QGz"/>
                             <outletCollection property="gestureRecognizers" destination="PMe-BY-vpG" appends="YES" id="WLp-Fc-wgy"/>
+                            <outletCollection property="gestureRecognizers" destination="xbj-Ms-hsd" appends="YES" id="7j7-MG-JBP"/>
                         </connections>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -41,8 +42,171 @@
                         <action selector="tapEvent:" destination="BV1-FR-VrT" id="wVy-Zo-Psn"/>
                     </connections>
                 </tapGestureRecognizer>
+                <pinchGestureRecognizer id="xbj-Ms-hsd">
+                    <connections>
+                        <action selector="pinchEvent:" destination="BV1-FR-VrT" id="vCn-hb-DOh"/>
+                    </connections>
+                </pinchGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="591" y="918"/>
+            <point key="canvasLocation" x="2109" y="1164"/>
+        </scene>
+        <!--In Progress-->
+        <scene sceneID="HAe-7P-7Fd">
+            <objects>
+                <tableViewController title="In Progress" id="HWU-ys-E2x" customClass="CurrentGamesViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ao8-PP-fEN">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="InProgressCell" textLabel="AuP-Bv-IpX" style="IBUITableViewCellStyleDefault" id="Rf7-sN-Xkz">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Rf7-sN-Xkz" id="wlK-Vk-l4d">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AuP-Bv-IpX">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="BV1-FR-VrT" kind="presentation" identifier="battle" id="Cnf-hA-QYs"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="HWU-ys-E2x" id="kYT-lp-WG3"/>
+                            <outlet property="delegate" destination="HWU-ys-E2x" id="LE3-pc-L6d"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Games In Progress" id="vzy-3b-Wiu">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="u1k-5E-YpV">
+                            <connections>
+                                <action selector="addButtonAction:" destination="HWU-ys-E2x" id="Pr4-OG-MTo"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gwt-dN-lQ9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1228" y="732"/>
+        </scene>
+        <!--Playing-->
+        <scene sceneID="IrO-Bh-cgU">
+            <objects>
+                <navigationController id="a7w-qV-3af" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Playing" id="Dcy-Zz-i2u"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ASv-yi-dlC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="HWU-ys-E2x" kind="relationship" relationship="rootViewController" id="iIC-TS-O3H"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eLX-G4-Lqj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="408" y="732"/>
+        </scene>
+        <!--Completed Games-->
+        <scene sceneID="jA3-zC-6iN">
+            <objects>
+                <tableViewController title="Completed Games" id="Bx3-Xh-MTq" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="2dc-hx-fTu">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CompletedCell" textLabel="YBs-t7-pcF" style="IBUITableViewCellStyleDefault" id="a5P-he-3Mq">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a5P-he-3Mq" id="fQC-H6-VLt">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YBs-t7-pcF">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="BV1-FR-VrT" kind="presentation" identifier="battle" id="P7i-KJ-irs"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Bx3-Xh-MTq" id="Oef-eh-7IQ"/>
+                            <outlet property="delegate" destination="Bx3-Xh-MTq" id="UKa-1N-kqc"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Completed Games" id="AEB-lH-Zgl"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3tG-8U-ind" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1224" y="1592"/>
+        </scene>
+        <!--Completed-->
+        <scene sceneID="PJw-Et-8kH">
+            <objects>
+                <navigationController id="4Mq-kd-Bbk" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Completed" id="hRG-0q-P0r"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2l8-of-eP8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Bx3-Xh-MTq" kind="relationship" relationship="rootViewController" id="FjP-XW-waM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9dB-U5-xfh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="404" y="1592"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="DNY-vW-Pur">
+            <objects>
+                <viewController title="Settings" id="ees-v2-IAA" userLabel="Settings" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vhE-3e-pVU"/>
+                        <viewControllerLayoutGuide type="bottom" id="lD6-GF-Gkz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yic-ie-c4l">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Settings" id="LY7-IX-yv9"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jCQ-xD-8hy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-488" y="1890"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="f0j-zo-5GA">
+            <objects>
+                <tabBarController id="Ls2-5w-UAt" sceneMemberID="viewController">
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="8if-GH-NKH">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="a7w-qV-3af" kind="relationship" relationship="viewControllers" id="r1D-Ru-WLP"/>
+                        <segue destination="4Mq-kd-Bbk" kind="relationship" relationship="viewControllers" id="mN0-gg-eOf"/>
+                        <segue destination="ees-v2-IAA" kind="relationship" relationship="viewControllers" id="ECd-MU-jo3"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RK9-Zg-xed" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-488" y="1164"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Cnf-hA-QYs"/>
+    </inferredMetricsTieBreakers>
 </document>

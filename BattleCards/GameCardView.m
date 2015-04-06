@@ -90,10 +90,10 @@
 
 -(void)showIcon {
     if (!iconToggle) {
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:0.25 animations:^{
             self.scoreView.alpha = 0.0;
         } completion:^(BOOL finished){
-            [UIView animateWithDuration:0.5 animations:^{
+            [UIView animateWithDuration:0.25 animations:^{
                 self.iconView.alpha = 1.0;
             }];
         }];
@@ -103,10 +103,10 @@
 
 -(void)showScore {
     if (iconToggle) {
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:0.25 animations:^{
             self.iconView.alpha = 0.0;
         } completion:^(BOOL finished){
-            [UIView animateWithDuration:0.5 animations:^{
+            [UIView animateWithDuration:0.25 animations:^{
                 self.scoreView.alpha = 1.0;
             }];
         }];

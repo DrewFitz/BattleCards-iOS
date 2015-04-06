@@ -27,6 +27,20 @@
 
 - (void)testExample {
     // This is an example of a functional test case.
+    NSObject* obj1 = [[NSObject alloc] init];
+    NSObject* obj2 = [[NSObject alloc] init];
+    
+    XCTAssertEqual([obj1 class], [obj2 class], @"class equality");
+    XCTAssertEqualObjects([obj1 class], [obj2 class], @"class equality objects");
+    
+    NSObject* obj3 = [[NSString alloc] init];
+    NSObject* obj4 = [[UIResponder alloc] init];
+    
+    NSLog(@"%@", [obj3 class]);
+    NSLog(@"%@", [obj4 class]);
+    
+    XCTAssertNotEqual([obj3 class], [obj4 class], @"class inequality through parent class pointer");
+    
     XCTAssert(YES, @"Pass");
 }
 

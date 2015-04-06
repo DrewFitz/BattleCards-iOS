@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "MatchStore.h"
+//@import GameKit;
 
 @interface AppDelegate ()
 
@@ -17,6 +19,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    /*
+    GKLocalPlayer* lp = [GKLocalPlayer localPlayer];
+    
+    lp.authenticateHandler = ^(UIViewController* vc, NSError* error) {
+        if (error) {
+            NSLog(@"GameCenter auth failed: %@", error);
+        }
+    };
+     */
+    
+    MatchStore* store = [MatchStore sharedStore];
+    [store loadFromArchive];
+    
     return YES;
 }
 
@@ -28,10 +43,12 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [[MatchStore sharedStore] archiveToFile];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    //[[MatchStore sharedStore] loadFromArchive];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

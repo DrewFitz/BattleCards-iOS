@@ -9,30 +9,32 @@
 #import <Foundation/Foundation.h>
 #import "GameCard.h"
 
+
 typedef enum : NSInteger {
     GameBoardSlotStateError = -1,       // out of bounds slot
     GameBoardSlotStateEmpty = 0,        // no card
-    GameBoardSlotStateActive,           // unresolved card
-    GameboardSlotStateInactive,         // resolved card (full slot)
+    GameBoardSlotStateActive = 1,           // unresolved card
+    GameboardSlotStateInactive = 2,         // resolved card (full slot)
 
-    GameBoardSlotStateWillBeEmptied,    // slot will be empty on end of resolution
-    GameBoardSlotStateWillBeNull        // slot will be filled with null score card at end of resolution
+    GameBoardSlotStateWillBeEmptied = 3,    // slot will be empty on end of resolution
+    GameBoardSlotStateWillBeNull = 4        // slot will be filled with null score card at end of resolution
 } GameBoardSlotState;
 
 typedef enum : NSUInteger {
-    GameBoardPlayerLocal,
-    GameBoardPlayerOpponent
+    GameBoardPlayerLocal = 1,
+    GameBoardPlayerOpponent = 2
 } GameBoardPlayer;
 
 typedef enum : NSUInteger {
-    GameBoardRowAction,
-    GameBoardRowScore
+    GameBoardRowAction = 1,
+    GameBoardRowScore = 2
 } GameBoardRow;
 
 typedef enum : NSUInteger {
-    GameBoardTurnOrderLocalFirst,
-    GameBoardTurnOrderLocalSecond
+    GameBoardTurnOrderLocalFirst = 1,
+    GameBoardTurnOrderLocalSecond = 2
 } GameBoardTurnOrder;
+
 
 @class GameBoard;
 
@@ -43,12 +45,13 @@ typedef enum : NSUInteger {
 
 @end
 
-@interface GameBoard : NSObject
 
-+ (instancetype)sharedBoard;
+@interface GameBoard : NSObject
 
 @property (nonatomic) GameBoardTurnOrder turnOrder;
 @property (weak, nonatomic) id<GameBoardDelegate> delegate;
+
++ (instancetype)sharedBoard;
 
 -(GameCard*) getCardForPlayer:(GameBoardPlayer)player inRow:(GameBoardRow)row slot:(int)slot;
 -(void) setCard:(GameCard*)card forPlayer:(GameBoardPlayer)player inRow:(GameBoardRow)row slot:(int)slot;
@@ -57,6 +60,9 @@ typedef enum : NSUInteger {
 -(void) setState:(GameBoardSlotState)state forPlayer:(GameBoardPlayer)player inRow:(GameBoardRow)row slot:(int)slot;
 
 -(void)resolveBoard;
+
+-(NSData*)boardData;
+-(void)loadData:(NSData*)data;
 
 @end
 

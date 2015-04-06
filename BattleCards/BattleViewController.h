@@ -9,10 +9,23 @@
 #import <UIKit/UIKit.h>
 #import "GameBoard.h"
 
-@interface BattleViewController : UIViewController <GameBoardDelegate, UIGestureRecognizerDelegate>
+@protocol BattleViewControllerDelegate <NSObject>
+
+- (void)didEndTurn;
+
+@end
+
+#import "LocalMatch.h"
+
+
+@interface BattleViewController : UIViewController <GameBoardDelegate>
+
+@property (weak, nonatomic) id<BattleViewControllerDelegate> delegate;
+@property (strong, nonatomic) LocalMatch* match;
 
 - (IBAction)downSwipeEvent:(id)sender;
 - (IBAction)upSwipeEvent:(id)sender;
 - (IBAction)tapEvent:(id)sender;
 
 @end
+

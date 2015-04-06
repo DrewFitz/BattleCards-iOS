@@ -9,7 +9,11 @@
 /* Begin PBXBuildFile section */
 		3A85928C1ABDDF88003A7EAE /* GameBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A85928B1ABDDF88003A7EAE /* GameBoard.m */; };
 		3A85928F1ABDE34E003A7EAE /* GameCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A85928E1ABDE34E003A7EAE /* GameCard.m */; };
+		3A86E9C71AD25367003BB34F /* HeartCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A86E9C61AD25367003BB34F /* HeartCard.m */; };
 		3AD056DA1AD05D9B00E08358 /* NullCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD056D91AD05D9B00E08358 /* NullCard.m */; };
+		3AD056DF1AD083D300E08358 /* MatchStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD056DE1AD083D300E08358 /* MatchStore.m */; };
+		3AD056E21AD0842B00E08358 /* LocalMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD056E11AD0842B00E08358 /* LocalMatch.m */; };
+		3AD056E61AD0FF0800E08358 /* CurrentGamesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD056E51AD0FF0800E08358 /* CurrentGamesViewController.m */; };
 		3AD3758A1ABDEDDA002683B2 /* LightningCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD375891ABDEDDA002683B2 /* LightningCard.m */; };
 		3AD375901ABE0428002683B2 /* GameCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3758F1ABE0428002683B2 /* GameCardView.m */; };
 		3ADDD9031ABD235300BBA3D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADDD9021ABD235300BBA3D8 /* main.m */; };
@@ -38,8 +42,17 @@
 		3A85928B1ABDDF88003A7EAE /* GameBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBoard.m; sourceTree = "<group>"; };
 		3A85928D1ABDE34E003A7EAE /* GameCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCard.h; sourceTree = "<group>"; };
 		3A85928E1ABDE34E003A7EAE /* GameCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCard.m; sourceTree = "<group>"; };
+		3A86E9C51AD25367003BB34F /* HeartCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeartCard.h; sourceTree = "<group>"; };
+		3A86E9C61AD25367003BB34F /* HeartCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeartCard.m; sourceTree = "<group>"; };
 		3AD056D81AD05D9B00E08358 /* NullCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullCard.h; sourceTree = "<group>"; };
 		3AD056D91AD05D9B00E08358 /* NullCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullCard.m; sourceTree = "<group>"; };
+		3AD056DD1AD083D300E08358 /* MatchStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchStore.h; sourceTree = "<group>"; };
+		3AD056DE1AD083D300E08358 /* MatchStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchStore.m; sourceTree = "<group>"; };
+		3AD056E01AD0842B00E08358 /* LocalMatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalMatch.h; sourceTree = "<group>"; };
+		3AD056E11AD0842B00E08358 /* LocalMatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalMatch.m; sourceTree = "<group>"; };
+		3AD056E31AD0B0BA00E08358 /* GameCardTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameCardTypes.h; sourceTree = "<group>"; };
+		3AD056E41AD0FF0800E08358 /* CurrentGamesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentGamesViewController.h; sourceTree = "<group>"; };
+		3AD056E51AD0FF0800E08358 /* CurrentGamesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentGamesViewController.m; sourceTree = "<group>"; };
 		3AD375881ABDEDDA002683B2 /* LightningCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightningCard.h; sourceTree = "<group>"; };
 		3AD375891ABDEDDA002683B2 /* LightningCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightningCard.m; sourceTree = "<group>"; };
 		3AD3758E1ABE0428002683B2 /* GameCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCardView.h; sourceTree = "<group>"; };
@@ -81,13 +94,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3AD056DB1AD0839200E08358 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3AD056DD1AD083D300E08358 /* MatchStore.h */,
+				3AD056DE1AD083D300E08358 /* MatchStore.m */,
+				3AD056E01AD0842B00E08358 /* LocalMatch.h */,
+				3AD056E11AD0842B00E08358 /* LocalMatch.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		3AD375861ABDED87002683B2 /* Game Cards */ = {
 			isa = PBXGroup;
 			children = (
-				3AD375881ABDEDDA002683B2 /* LightningCard.h */,
-				3AD375891ABDEDDA002683B2 /* LightningCard.m */,
+				3AD056E31AD0B0BA00E08358 /* GameCardTypes.h */,
 				3AD056D81AD05D9B00E08358 /* NullCard.h */,
 				3AD056D91AD05D9B00E08358 /* NullCard.m */,
+				3AD375881ABDEDDA002683B2 /* LightningCard.h */,
+				3AD375891ABDEDDA002683B2 /* LightningCard.m */,
+				3A86E9C51AD25367003BB34F /* HeartCard.h */,
+				3A86E9C61AD25367003BB34F /* HeartCard.m */,
 			);
 			name = "Game Cards";
 			sourceTree = "<group>";
@@ -120,6 +147,8 @@
 			children = (
 				3ADDD92D1ABD277800BBA3D8 /* BattleViewController.h */,
 				3ADDD92E1ABD277800BBA3D8 /* BattleViewController.m */,
+				3AD056E41AD0FF0800E08358 /* CurrentGamesViewController.h */,
+				3AD056E51AD0FF0800E08358 /* CurrentGamesViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -158,6 +187,7 @@
 				3ADDD9141ABD235300BBA3D8 /* LaunchScreen.xib */,
 				3ADDD90F1ABD235300BBA3D8 /* Main.storyboard */,
 				3AD3758D1ABE03C5002683B2 /* Delegates */,
+				3AD056DB1AD0839200E08358 /* Models */,
 				3AD3758C1ABE03BB002683B2 /* Controllers */,
 				3AD3758B1ABE03AA002683B2 /* Views */,
 				3AD375871ABDED95002683B2 /* Gameplay Objects */,
@@ -302,11 +332,15 @@
 				3AD3758A1ABDEDDA002683B2 /* LightningCard.m in Sources */,
 				3ADDD9061ABD235300BBA3D8 /* AppDelegate.m in Sources */,
 				3AD375901ABE0428002683B2 /* GameCardView.m in Sources */,
+				3AD056E21AD0842B00E08358 /* LocalMatch.m in Sources */,
 				3ADDD9321ABD2A9500BBA3D8 /* GridSlotView.m in Sources */,
+				3A86E9C71AD25367003BB34F /* HeartCard.m in Sources */,
 				3A85928F1ABDE34E003A7EAE /* GameCard.m in Sources */,
 				3ADDD9031ABD235300BBA3D8 /* main.m in Sources */,
 				3A85928C1ABDDF88003A7EAE /* GameBoard.m in Sources */,
+				3AD056DF1AD083D300E08358 /* MatchStore.m in Sources */,
 				3ADDD92F1ABD277800BBA3D8 /* BattleViewController.m in Sources */,
+				3AD056E61AD0FF0800E08358 /* CurrentGamesViewController.m in Sources */,
 				3AD056DA1AD05D9B00E08358 /* NullCard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

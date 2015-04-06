@@ -19,7 +19,7 @@
 
 - (void) setupProperties {
     score = 5;
-    priority = 1;
+    priority = 2;
     name = @"Lightning";
     effectDescription = @"Destroy the opponent's score card in this column.";
     iconName = @"LightningBolt";
