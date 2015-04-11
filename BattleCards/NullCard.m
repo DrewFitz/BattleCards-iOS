@@ -15,6 +15,7 @@
 @synthesize name;
 @synthesize effectDescription;
 @synthesize iconName;
+@synthesize tintColor;
 
 
 - (void) setupProperties {
@@ -23,6 +24,7 @@
     name = @"Null";
     effectDescription = @"Does nothing. A waste of space.";
     iconName = @"Null";
+    tintColor = [UIColor colorWithWhite:0.5 alpha:1.0];
 }
 
 - (instancetype)init

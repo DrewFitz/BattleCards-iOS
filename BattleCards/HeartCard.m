@@ -15,6 +15,7 @@
 @synthesize name;
 @synthesize effectDescription;
 @synthesize iconName;
+@synthesize tintColor;
 
 - (void) setupProperties {
     score = 10;
@@ -22,6 +23,7 @@
     name = @"Heart";
     effectDescription = @"Protect your score card in this column from destruction.";
     iconName = @"Heart";
+    tintColor = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0];
 }
 
 - (instancetype)init

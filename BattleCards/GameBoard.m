@@ -23,27 +23,37 @@
     return sharedBoard;
 }
 
+-(void)clearBoard {
+    for (int i = 0; i < 16; i++) {
+        gameBoardStates[i] = GameBoardSlotStateEmpty;
+        gameBoardCards[i] = nil;
+    }
+}
+
 - (instancetype)init {
     self = [super init];
     if (self) {
-        for (int i = 0; i < 16; i++) {
-            gameBoardStates[i] = GameBoardSlotStateEmpty;
-            gameBoardCards[i] = nil;
-        }
-        // TODO: fix player order loading
+        [self clearBoard];
         self.turnOrder = GameBoardTurnOrderLocalFirst;
         [self loadCardClasses];
     }
     return self;
 }
 
+-(GameCard*)drawCard {
+    int i = rand();
+    Class cardClass = cardClasses[1 + (i % (cardClasses.count-1))];
+    return (GameCard*)[[cardClass alloc] init];
+}
 
 #pragma mark - Helper methods
 
 -(void)loadCardClasses {
     cardClasses = @[[NullCard class],
                     [LightningCard class],
-                    [HeartCard class]];
+                    [HeartCard class],
+                    [BombCard class],
+                    [IceCard class]];
 }
 
 -(int) getOffsetWithPlayer:(GameBoardPlayer)player row:(GameBoardRow)row {

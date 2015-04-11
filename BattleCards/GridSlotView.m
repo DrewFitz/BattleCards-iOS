@@ -28,12 +28,16 @@
     
     _targetView = targetView;
     
-    [_targetView setFrame:frame];
+    if (_targetView) {
+        [_targetView setFrame:frame];
+    }
 }
 
 -(void)setFrame:(CGRect)frame {
     [super setFrame:frame];
-    [_targetView setFrame:frame];
+    if (_targetView) {
+        [_targetView setFrame:frame];
+    }
 }
 
 @end

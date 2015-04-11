@@ -11,7 +11,7 @@
 
 @protocol BattleViewControllerDelegate <NSObject>
 
-- (void)didEndTurn;
+- (void)didCloseBattle;
 
 @end
 
@@ -23,8 +23,9 @@
 @property (weak, nonatomic) id<BattleViewControllerDelegate> delegate;
 @property (strong, nonatomic) LocalMatch* match;
 
+@property (weak, nonatomic) IBOutlet UIView *turnBlockingView;
+
 - (IBAction)downSwipeEvent:(id)sender;
-- (IBAction)upSwipeEvent:(id)sender;
 - (IBAction)tapEvent:(id)sender;
 
 @end

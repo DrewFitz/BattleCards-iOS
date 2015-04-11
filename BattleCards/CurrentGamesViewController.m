@@ -53,8 +53,8 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         LocalMatch* match = [[MatchStore sharedStore] getLocalMatchAtIndex:[indexPath indexAtPosition:1]];
         [[MatchStore sharedStore] deleteLocalMatch:match];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
-    [tableView reloadData];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -81,8 +81,10 @@
     }
 }
 
--(void)didEndTurn {
-    [self dismissViewControllerAnimated:YES completion:nil];
+-(void)didCloseBattle {
+    [self dismissViewControllerAnimated:YES completion:^{
+        [[MatchStore sharedStore] archiveToFile];
+    }];
 }
 
 @end

@@ -16,6 +16,7 @@
 @synthesize name;
 @synthesize effectDescription;
 @synthesize iconName;
+@synthesize tintColor;
 
 - (void) setupProperties {
     score = 5;
@@ -23,6 +24,7 @@
     name = @"Lightning";
     effectDescription = @"Destroy the opponent's score card in this column.";
     iconName = @"LightningBolt";
+    tintColor = [UIColor colorWithRed:1.0 green:1.0 blue:0.0 alpha:1.0];
 }
 
 - (instancetype)init

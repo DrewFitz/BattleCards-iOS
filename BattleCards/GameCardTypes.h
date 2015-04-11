@@ -12,5 +12,7 @@
 #import "NullCard.h"
 #import "LightningCard.h"
 #import "HeartCard.h"
+#import "BombCard.h"
+#import "IceCard.h"
 
 #endif

@@ -10,7 +10,16 @@
 #import "GameBoard.h"
 
 @implementation LocalMatch {
+    GameBoardTurnOrder currentTurnOrder;
     NSData* boardData;
+}
+
+-(instancetype)init {
+    self = [super init];
+    if (self) {
+        currentTurnOrder = GameBoardTurnOrderLocalFirst;
+    }
+    return self;
 }
 
 -(void)makeActiveMatch {
@@ -18,7 +27,11 @@
     
     if (boardData) {
         [board loadData:boardData];
+    } else {
+        [board clearBoard];
     }
+    
+    board.turnOrder = currentTurnOrder;
 }
 
 -(void)commitTurn {
@@ -28,14 +41,14 @@
     
     boardData = [board boardData];
     
-    GameBoardTurnOrder order = board.turnOrder;
-    
     // swap to other player's turn
-    if (order == GameBoardTurnOrderLocalFirst) {
+    if (board.turnOrder == GameBoardTurnOrderLocalFirst) {
         board.turnOrder = GameBoardTurnOrderLocalSecond;
     } else {
         board.turnOrder = GameBoardTurnOrderLocalFirst;
     }
+    
+    currentTurnOrder = board.turnOrder;
 }
 
 #pragma mark - NSCoding protocol
@@ -45,6 +58,7 @@
     if (self) {
         self.matchID = [aDecoder decodeObjectForKey:@"matchID"];
         boardData = [aDecoder decodeObjectForKey:@"boardData"];
+        currentTurnOrder = [aDecoder decodeIntegerForKey:@"currentTurnOrder"];
     }
     return self;
 }
@@ -52,6 +66,7 @@
 -(void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:self.matchID forKey:@"matchID"];
     [aCoder encodeObject:boardData forKey:@"boardData"];
+    [aCoder encodeInteger:currentTurnOrder forKey:@"currentTurnOrder"];
 }
 
 @end

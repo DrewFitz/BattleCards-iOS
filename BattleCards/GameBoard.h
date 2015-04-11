@@ -20,17 +20,17 @@ typedef enum : NSInteger {
     GameBoardSlotStateWillBeNull = 4        // slot will be filled with null score card at end of resolution
 } GameBoardSlotState;
 
-typedef enum : NSUInteger {
+typedef enum : NSInteger {
     GameBoardPlayerLocal = 1,
     GameBoardPlayerOpponent = 2
 } GameBoardPlayer;
 
-typedef enum : NSUInteger {
+typedef enum : NSInteger {
     GameBoardRowAction = 1,
     GameBoardRowScore = 2
 } GameBoardRow;
 
-typedef enum : NSUInteger {
+typedef enum : NSInteger {
     GameBoardTurnOrderLocalFirst = 1,
     GameBoardTurnOrderLocalSecond = 2
 } GameBoardTurnOrder;
@@ -52,6 +52,10 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) id<GameBoardDelegate> delegate;
 
 + (instancetype)sharedBoard;
+
+-(void)clearBoard;
+
+-(GameCard*)drawCard;
 
 -(GameCard*) getCardForPlayer:(GameBoardPlayer)player inRow:(GameBoardRow)row slot:(int)slot;
 -(void) setCard:(GameCard*)card forPlayer:(GameBoardPlayer)player inRow:(GameBoardRow)row slot:(int)slot;

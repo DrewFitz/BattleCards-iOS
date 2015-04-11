@@ -41,6 +41,8 @@
     
     [self.localMatches addObject:localMatch];
     
+    [self archiveToFile];
+    
     return localMatch;
 }
 
@@ -48,6 +50,7 @@
 
 -(void)deleteLocalMatch:(LocalMatch *)match {
     [self.localMatches removeObject:match];
+    [self archiveToFile];
 }
 
 //-(void)deleteRemoteMatch:(RemoteMatch*)match;

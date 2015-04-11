@@ -10,11 +10,10 @@
 #import "GridSlotView.h"
 #import "GameCardView.h"
 
-// temporary for testing
-#import "LightningCard.h"
-#import "HeartCard.h"
-
 @interface BattleViewController ()
+@property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *downSwipeRecognizer;
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapRecognizer;
+@property (strong, nonatomic) IBOutlet UIPinchGestureRecognizer *pinchRecognizer;
 
 @end
 
@@ -90,33 +89,13 @@
         }
     }
     
-    GameCard* cardType = [[LightningCard alloc] init];
-    GameCardView* newCard = [[GameCardView alloc] init];
-    [self.view addSubview:newCard];
-    [newCard setGameCard:cardType];
-    [handSlotViews[0] setTargetView:newCard];
-    
-    newCard = [[GameCardView alloc] init];
-    [self.view addSubview:newCard];
-    [newCard setGameCard:cardType];
-    [handSlotViews[2] setTargetView:newCard];
-    
-    newCard = [[GameCardView alloc] init];
-    [self.view addSubview:newCard];
-    [newCard setGameCard:cardType];
-    [handSlotViews[4] setTargetView:newCard];
-    
-    cardType = [[HeartCard alloc] init];
-    
-    newCard = [[GameCardView alloc] init];
-    [self.view addSubview:newCard];
-    [newCard setGameCard:cardType];
-    [handSlotViews[1] setTargetView:newCard];
-    
-    newCard = [[GameCardView alloc] init];
-    [self.view addSubview:newCard];
-    [newCard setGameCard:cardType];
-    [handSlotViews[3] setTargetView:newCard];
+    for (int i = 0; i < 5; i++) {
+        GameCard* card = [[GameBoard sharedBoard] drawCard];
+        GameCardView* cardView = [[GameCardView alloc] init];
+        [self.view addSubview:cardView];
+        [cardView setGameCard:card];
+        [handSlotViews[i] setTargetView:cardView];
+    }
 }
 
 -(void)writeToGameBoard {
@@ -180,6 +159,7 @@
             GameCard* card = [board getCardForPlayer:GameBoardPlayerOpponent inRow:GameBoardRowAction slot:i%4];
             [view setGameCard:card];
             [view showIcon];
+            [view setActive:state == GameBoardSlotStateActive];
             [self.view addSubview:view];
             gridSlotViews[i].targetView = view;
         }
@@ -192,6 +172,7 @@
             GameCard* card = [board getCardForPlayer:GameBoardPlayerLocal inRow:GameBoardRowAction slot:i%4];
             [view setGameCard:card];
             [view showIcon];
+            [view setActive:state == GameBoardSlotStateActive];
             [self.view addSubview:view];
             gridSlotViews[i].targetView = view;
         }
@@ -217,9 +198,16 @@
     // tell model to process changes
     [self.match commitTurn];
     
-    // tell delegate that turn ended
-//    if(self.delegate)[self.delegate didEndTurn];
+    [self.turnBlockingView setHidden:NO];
+    [self.view bringSubviewToFront:self.turnBlockingView];
     
+    [self.tapRecognizer setEnabled:YES];
+    [UIView animateWithDuration:0.2 animations:^{
+        self.turnBlockingView.alpha = 1.0;
+    }];
+}
+
+-(void)startTurn {
     [self reloadBoard];
     [self drawHand];
 }
@@ -230,22 +218,22 @@
 - (IBAction)pinchEvent:(id)sender {
     UIPinchGestureRecognizer* pg = (UIPinchGestureRecognizer*)sender;
     if (pg && [pg scale] < 0.5) {
-        [pg setEnabled:NO];
-        [pg setEnabled:YES];
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        [self.delegate didCloseBattle];
     }
 }
 
 - (IBAction)downSwipeEvent:(id)sender {
-    NSLog(@"swipe down");
-    //[self.view setUserInteractionEnabled:NO];
     [self endTurn];
 }
 
-- (IBAction)upSwipeEvent:(id)sender {
-}
-
 - (IBAction)tapEvent:(id)sender {
+    [self.tapRecognizer setEnabled:NO];
+    [UIView animateWithDuration:0.2 animations:^{
+        self.turnBlockingView.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [self.turnBlockingView setHidden:YES];
+        [self startTurn];
+    }];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -263,12 +251,17 @@
             closestSlot.targetView = nil;
             currentDraggingView = closestView;
             oldSlot = closestSlot;
-            [UIView animateWithDuration:0.25 animations:^{
-                [currentDraggingView showIcon];
-            }];
         } else {
             draggingTouch = nil;
         }
+    }
+    
+    if (currentDraggingView) {
+        [self.view bringSubviewToFront:currentDraggingView];
+        [UIView animateWithDuration:0.1 animations:^{
+            currentDraggingView.alpha = 0.75;
+            [currentDraggingView setTransform:CGAffineTransformMakeScale(1.2, 1.2)];
+        }];
     }
 }
 
@@ -313,6 +306,12 @@
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     if ([touches containsObject:draggingTouch]) {
+        if (currentDraggingView) {
+            [UIView animateWithDuration:0.1 animations:^{
+                currentDraggingView.alpha = 1.0;
+                [currentDraggingView setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+            }];
+        }
         UIColor* inactiveBackgroundColor = [UIColor colorWithWhite:0.8 alpha:1.0];
         BOOL showIcon = YES;
         
@@ -368,6 +367,12 @@
 
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
     if ([touches containsObject:draggingTouch]) {
+        if (currentDraggingView) {
+            [UIView animateWithDuration:0.1 animations:^{
+                currentDraggingView.alpha = 1.0;
+                [currentDraggingView setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+            }];
+        }
         oldSlot.targetView = currentDraggingView;
         draggingTouch = nil;
         oldSlot = nil;
@@ -459,14 +464,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.turnBlockingView setHidden:YES];
+    
+    self.downSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(downSwipeEvent:)];
+    [self.downSwipeRecognizer setDirection:UISwipeGestureRecognizerDirectionDown];
+    [self.downSwipeRecognizer setNumberOfTouchesRequired:2];
+    [self.view addGestureRecognizer:self.downSwipeRecognizer];
+    
+    [self.tapRecognizer setEnabled:NO];
+    
     [self allocateBoardViews];
     [self layoutBoardViews];
     
-    [self drawHand];
-    
     [self.match makeActiveMatch];
     
-    [self reloadBoard];
+    [self startTurn];
 }
 
 -(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {

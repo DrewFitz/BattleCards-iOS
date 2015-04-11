@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface GameCard : NSObject
 
@@ -15,6 +16,7 @@
 @property (readonly, nonatomic, strong) NSString* name;
 @property (readonly, nonatomic, strong) NSString* effectDescription;
 @property (readonly, nonatomic, strong) NSString* iconName;
+@property (readonly, nonatomic, strong) UIColor* tintColor;
 
 // called when resolving as played action
 -(BOOL) canActivateInSlot:(int)slot;

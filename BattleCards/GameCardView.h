@@ -11,6 +11,8 @@
 
 @interface GameCardView : UIView
 
+@property (nonatomic) BOOL active;
+
 -(void) setGameCard:(GameCard*)card;
 -(GameCard*) getGameCard;
 -(void) showIcon;

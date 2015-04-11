@@ -27,14 +27,28 @@
     CGRect frame = self.frame;
     
     frame.origin = CGPointZero;
-    
-    self.iconView.frame = frame;
     self.scoreView.frame = frame;
+    
+    frame.origin.y = (frame.size.height - frame.size.width) / 2.0;
+    frame.size.height = frame.size.width;
+    self.iconView.frame = frame;
     
     self.scoreView.textAlignment = NSTextAlignmentCenter;
     
     [self addSubview:self.iconView];
     [self addSubview:self.scoreView];
+    
+    UIColor *bgColor = [UIColor colorWithWhite:0.5 alpha:1.0];
+    
+    self.iconView.backgroundColor = bgColor;
+    self.scoreView.backgroundColor = bgColor;
+    self.backgroundColor = bgColor;
+    
+    UIFont* scoreFont = [UIFont fontWithName:@"Helvetica" size:40.0];
+    if (scoreFont) {
+        self.scoreView.font = scoreFont;
+        self.scoreView.textColor = [UIColor whiteColor];
+    }
     
     iconToggle = YES;
     self.scoreView.alpha = 0.0;
@@ -65,13 +79,25 @@
     return self;
 }
 
+-(void)setActive:(BOOL)active {
+    UIColor *color;
+    if (active) {
+        color = self.card.tintColor;
+    } else {
+        color = [UIColor colorWithWhite:0.4 alpha:1.0];
+    }
+    self.iconView.tintColor = color;
+}
+
 -(void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     
     frame.origin = CGPointZero;
-    
-    self.iconView.frame = frame;
     self.scoreView.frame = frame;
+    
+    frame.origin.y = (frame.size.height - frame.size.width) / 2.0;
+    frame.size.height = frame.size.width;
+    self.iconView.frame = frame;
 }
 
 -(void)setGameCard:(GameCard *)card {
@@ -79,6 +105,7 @@
     
     self.card = card;
     self.iconView.image = [UIImage imageNamed:self.card.iconName];
+    self.iconView.tintColor = self.card.tintColor;
     self.scoreView.text = [NSString stringWithFormat:@"%d", self.card.score];
     
     [self setNeedsDisplay];

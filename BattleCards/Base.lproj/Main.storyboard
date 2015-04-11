@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ls2-5w-UAt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ls2-5w-UAt">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <scenes>
         <!--Battle-->
@@ -12,32 +12,53 @@
                         <viewControllerLayoutGuide type="top" id="maK-i9-Uhn"/>
                         <viewControllerLayoutGuide type="bottom" id="khH-OB-KpY"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="3se-qz-xqx">
+                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxL-aE-J3F" userLabel="Turn Blocking View">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pass Device to Opponent and tap to continue." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCs-Gp-XCs">
+                                        <rect key="frame" x="123" y="290" width="355" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="dCs-Gp-XCs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hxL-aE-J3F" secondAttribute="leading" constant="50" id="9KF-F4-FgT"/>
+                                    <constraint firstItem="dCs-Gp-XCs" firstAttribute="top" relation="greaterThanOrEqual" secondItem="hxL-aE-J3F" secondAttribute="top" constant="50" id="9yj-HU-q8Z"/>
+                                    <constraint firstAttribute="centerX" secondItem="dCs-Gp-XCs" secondAttribute="centerX" id="HM1-vt-o29"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dCs-Gp-XCs" secondAttribute="trailing" constant="50" id="kLa-Rk-sVn"/>
+                                    <constraint firstAttribute="centerY" secondItem="dCs-Gp-XCs" secondAttribute="centerY" id="mnf-kI-Ei7"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="dCs-Gp-XCs" secondAttribute="bottom" constant="50" id="rB1-Kk-vXO"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="hxL-aE-J3F" secondAttribute="width" id="Ovt-wg-aWV"/>
+                            <constraint firstAttribute="centerX" secondItem="hxL-aE-J3F" secondAttribute="centerX" id="QkB-My-6xb"/>
+                            <constraint firstAttribute="height" secondItem="hxL-aE-J3F" secondAttribute="height" id="Y9l-AC-pMq"/>
+                            <constraint firstAttribute="centerY" secondItem="hxL-aE-J3F" secondAttribute="centerY" id="uNa-Iy-ldg"/>
+                        </constraints>
                         <connections>
-                            <outletCollection property="gestureRecognizers" destination="ghw-fZ-2HS" appends="YES" id="qeH-JD-bVQ"/>
-                            <outletCollection property="gestureRecognizers" destination="hgz-5D-ad6" appends="YES" id="kLn-qI-QGz"/>
                             <outletCollection property="gestureRecognizers" destination="PMe-BY-vpG" appends="YES" id="WLp-Fc-wgy"/>
                             <outletCollection property="gestureRecognizers" destination="xbj-Ms-hsd" appends="YES" id="7j7-MG-JBP"/>
                         </connections>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="pinchRecognizer" destination="xbj-Ms-hsd" id="K5c-5H-d14"/>
+                        <outlet property="tapRecognizer" destination="PMe-BY-vpG" id="xhw-bX-m7J"/>
+                        <outlet property="turnBlockingView" destination="hxL-aE-J3F" id="v2T-bu-elR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="down" numberOfTouchesRequired="2" id="ghw-fZ-2HS" userLabel="Down Swipe Gesture Recognizer">
-                    <connections>
-                        <action selector="downSwipeEvent:" destination="BV1-FR-VrT" id="HjH-eA-MhJ"/>
-                    </connections>
-                </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="up" numberOfTouchesRequired="2" id="hgz-5D-ad6" userLabel="Up Swipe Gesture Recognizer">
-                    <connections>
-                        <action selector="upSwipeEvent:" destination="BV1-FR-VrT" id="ZXw-yR-LIt"/>
-                    </connections>
-                </swipeGestureRecognizer>
-                <tapGestureRecognizer id="PMe-BY-vpG">
+                <tapGestureRecognizer delaysTouchesBegan="YES" id="PMe-BY-vpG">
                     <connections>
                         <action selector="tapEvent:" destination="BV1-FR-VrT" id="wVy-Zo-Psn"/>
                     </connections>
