@@ -103,6 +103,7 @@
             GameCard* card = [self getCardForPlayer:GameBoardPlayerLocal inRow:GameBoardRowAction slot:slot];
             [self setState:GameboardSlotStateInactive forPlayer:GameBoardPlayerLocal inRow:GameBoardRowAction slot:slot];
             [card activateInSlot:slot];
+            [self.delegate gameBoard:self didActivateCard:card forPlayer:GameBoardPlayerLocal inSlot:slot];
             dirty = YES;
         }
     } while (doResolve);
@@ -134,6 +135,7 @@
             GameCard* card = [self getCardForPlayer:GameBoardPlayerOpponent inRow:GameBoardRowAction slot:slot];
             [self setState:GameboardSlotStateInactive forPlayer:GameBoardPlayerOpponent inRow:GameBoardRowAction slot:slot];
             [card respondToActionInSlot:slot];
+            [self.delegate gameBoard:self didActivateCard:card forPlayer:GameBoardPlayerOpponent inSlot:slot];
             dirty = YES;
         }
     } while (doResolve);

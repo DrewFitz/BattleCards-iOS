@@ -28,5 +28,7 @@
 - (IBAction)downSwipeEvent:(id)sender;
 - (IBAction)tapEvent:(id)sender;
 
+-(void)gameBoard:(GameBoard *)board didActivateCard:(GameCard *)card forPlayer:(GameBoardPlayer)player inSlot:(int)slot;
+
 @end
 

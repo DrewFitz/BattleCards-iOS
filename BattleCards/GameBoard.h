@@ -11,8 +11,8 @@
 
 
 typedef enum : NSInteger {
-    GameBoardSlotStateError = -1,       // out of bounds slot
-    GameBoardSlotStateEmpty = 0,        // no card
+    GameBoardSlotStateError = -1,           // out of bounds slot
+    GameBoardSlotStateEmpty = 0,            // no card
     GameBoardSlotStateActive = 1,           // unresolved card
     GameboardSlotStateInactive = 2,         // resolved card (full slot)
 
@@ -41,7 +41,9 @@ typedef enum : NSInteger {
 @protocol GameBoardDelegate <NSObject>
 
 @optional
+
 -(void)gameBoardDidChange:(GameBoard*)board;
+-(void)gameBoard:(GameBoard*)board didActivateCard:(GameCard*)card forPlayer:(GameBoardPlayer)player inSlot:(int)slot;
 
 @end
 

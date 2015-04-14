@@ -17,4 +17,6 @@
 -(void) activateInSlot:(int)slot {}
 -(void) respondToActionInSlot:(int)slot {}
 
+-(void (^)())animationBlockWithCoordinator:(AnimationCoordinator *)coordinator {return nil;};
+
 @end

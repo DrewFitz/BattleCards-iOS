@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "AnimationCoordinator.h"
 
 @interface GameCard : NSObject
 
@@ -26,5 +27,7 @@
 // do the actions for resolving
 -(void) activateInSlot:(int)slot;
 -(void) respondToActionInSlot:(int)slot;
+
+-(void(^)())animationBlockWithCoordinator:(AnimationCoordinator*)coordinator;
 
 @end

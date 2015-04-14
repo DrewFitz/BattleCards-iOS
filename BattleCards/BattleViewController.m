@@ -9,6 +9,7 @@
 #import "BattleViewController.h"
 #import "GridSlotView.h"
 #import "GameCardView.h"
+#import "AnimationCoordinator_InternalAccess.h"
 
 @interface BattleViewController ()
 @property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *downSwipeRecognizer;
@@ -29,6 +30,8 @@
     GameCardView* currentDraggingView;
     
     UITouch* draggingTouch;
+    
+    NSMutableArray* pendingAnimations;
 }
 
 
@@ -191,6 +194,10 @@
     }
 }
 
+-(void)playPendingAnimations {
+    
+}
+
 -(void)endTurn {
     // write our data from UI into the model
     [self writeToGameBoard];
@@ -198,13 +205,16 @@
     // tell model to process changes
     [self.match commitTurn];
     
+    // show changes
+    [self playPendingAnimations];
+    
     [self.turnBlockingView setHidden:NO];
     [self.view bringSubviewToFront:self.turnBlockingView];
-    
-    [self.tapRecognizer setEnabled:YES];
     [UIView animateWithDuration:0.2 animations:^{
         self.turnBlockingView.alpha = 1.0;
     }];
+    
+    [self.tapRecognizer setEnabled:YES];
 }
 
 -(void)startTurn {
@@ -477,6 +487,7 @@
     [self layoutBoardViews];
     
     [self.match makeActiveMatch];
+    [GameBoard sharedBoard].delegate = self;
     
     [self startTurn];
 }
@@ -490,8 +501,24 @@
 
 #pragma mark - GameBoardDelegate Protocol
 
--(void)gameBoardDidChange:(GameBoard *)board {
-    NSLog(@"BoardChanged");
+-(void)gameBoard:(GameBoard *)board didActivateCard:(GameCard *)card forPlayer:(GameBoardPlayer)player inSlot:(int)slot {
+    AnimationCoordinator* ac = [[AnimationCoordinator alloc] init];
+    
+    SourceInfo source;
+    source.slot = slot;
+    source.row = GameBoardRowAction;
+    source.player = player;
+    
+    [ac setSource:source];
+    
+    for (int i = 0; i < 16; i++) {
+        GridSlotView *slot = gridSlotViews[i];
+        [ac setCenter:slot.center forSlotNumber:i];
+    }
+    
+    void(^animBlock)() = [card animationBlockWithCoordinator:ac];
+    
+    [pendingAnimations addObject:animBlock];
 }
 
 @end

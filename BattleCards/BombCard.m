@@ -61,4 +61,10 @@
     // does same thing regardless of board side
     [self activateInSlot:slot];
 }
+
+-(void (^)())animationBlockWithCoordinator:(AnimationCoordinator *)coordinator {
+    return nil;
+}
+
+
 @end
