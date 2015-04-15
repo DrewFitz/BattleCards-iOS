@@ -9,6 +9,8 @@
 #import "HeartCard.h"
 #import "GameBoard.h"
 
+#import "NullCard.h"
+
 @implementation HeartCard
 
 - (void) setupProperties {
@@ -31,7 +33,9 @@
 
 -(BOOL)canActivateInSlot:(int)slot {
     GameBoardSlotState targetState = [[GameBoard sharedBoard] getStateForPlayer:GameBoardPlayerLocal inRow:GameBoardRowScore slot:slot];
-    if (targetState == GameBoardSlotStateWillBeEmptied) {
+    GameCard* targetCard = [[GameBoard sharedBoard] getCardForPlayer:GameBoardPlayerLocal inRow:GameBoardRowScore slot:slot];
+    BOOL targetCardIsNotNull = targetCard != nil && [targetCard class] != [NullCard class];
+    if (targetState == GameBoardSlotStateWillBeEmptied && targetCardIsNotNull) {
         return YES;
     } else {
         return NO;
@@ -40,7 +44,9 @@
 
 -(BOOL)canRespondToActionInSlot:(int)slot {
     GameBoardSlotState targetState = [[GameBoard sharedBoard] getStateForPlayer:GameBoardPlayerOpponent inRow:GameBoardRowScore slot:slot];
-    if (targetState == GameBoardSlotStateWillBeEmptied) {
+    GameCard* targetCard = [[GameBoard sharedBoard] getCardForPlayer:GameBoardPlayerOpponent inRow:GameBoardRowScore slot:slot];
+    BOOL targetCardIsNotNull = targetCard != nil && [targetCard class] != [NullCard class];
+    if (targetState == GameBoardSlotStateWillBeEmptied && targetCardIsNotNull) {
         return YES;
     } else {
         return NO;
