@@ -10,7 +10,15 @@
 #import <UIKit/UIKit.h>
 #import "AnimationCoordinator.h"
 
-@interface GameCard : NSObject
+@interface GameCard : NSObject {
+    @protected
+    int _score;
+    int _priority;
+    NSString* _name;
+    NSString* _effectDescription;
+    NSString* _iconName;
+    UIColor* _tintColor;
+}
 
 @property (readonly, nonatomic) int score;
 @property (readonly, nonatomic) int priority;

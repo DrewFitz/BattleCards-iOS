@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GameCard.h"
 
+@class GameCard;
 
 typedef enum : NSInteger {
     GameBoardSlotStateError = -1,           // out of bounds slot

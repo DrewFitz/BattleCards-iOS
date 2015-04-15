@@ -11,21 +11,14 @@
 
 @implementation BombCard
 
-@synthesize score;
-@synthesize priority;
-@synthesize name;
-@synthesize effectDescription;
-@synthesize iconName;
-@synthesize tintColor;
-
 
 - (void) setupProperties {
-    score = 50;
-    priority = 5;
-    name = @"Bomb";
-    effectDescription = @"Destroys all score cards in this and adjacent columns. Always activates when played";
-    iconName = @"Bomb";
-    tintColor = [UIColor colorWithRed:1.0 green:0.64 blue:0.0 alpha:1.0];
+    _score = 50;
+    _priority = 5;
+    _name = @"Bomb";
+    _effectDescription = @"Destroys all score cards in this and adjacent columns. Always activates when played";
+    _iconName = @"Bomb";
+    _tintColor = [UIColor colorWithRed:1.0 green:0.64 blue:0.0 alpha:1.0];
 }
 
 - (instancetype)init

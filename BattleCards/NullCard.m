@@ -10,21 +10,13 @@
 
 @implementation NullCard
 
-@synthesize score;
-@synthesize priority;
-@synthesize name;
-@synthesize effectDescription;
-@synthesize iconName;
-@synthesize tintColor;
-
-
 - (void) setupProperties {
-    score = 0;
-    priority = 0;
-    name = @"Null";
-    effectDescription = @"Does nothing. A waste of space.";
-    iconName = @"Null";
-    tintColor = [UIColor colorWithWhite:0.5 alpha:1.0];
+    _score = 0;
+    _priority = 0;
+    _name = @"Null";
+    _effectDescription = @"Does nothing. A waste of space.";
+    _iconName = @"Null";
+    _tintColor = [UIColor colorWithWhite:0.5 alpha:1.0];
 }
 
 - (instancetype)init

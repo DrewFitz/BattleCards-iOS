@@ -11,20 +11,13 @@
 
 @implementation LightningCard
 
-@synthesize score;
-@synthesize priority;
-@synthesize name;
-@synthesize effectDescription;
-@synthesize iconName;
-@synthesize tintColor;
-
 - (void) setupProperties {
-    score = 5;
-    priority = 2;
-    name = @"Lightning";
-    effectDescription = @"Destroy the opponent's score card in this column.";
-    iconName = @"LightningBolt";
-    tintColor = [UIColor colorWithRed:1.0 green:1.0 blue:0.0 alpha:1.0];
+    _score = 5;
+    _priority = 2;
+    _name = @"Lightning";
+    _effectDescription = @"Destroy the opponent's score card in this column.";
+    _iconName = @"LightningBolt";
+    _tintColor = [UIColor colorWithRed:1.0 green:1.0 blue:0.0 alpha:1.0];
 }
 
 - (instancetype)init

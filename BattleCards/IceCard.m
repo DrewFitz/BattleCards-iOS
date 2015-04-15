@@ -11,21 +11,14 @@
 
 @implementation IceCard
 
-@synthesize score;
-@synthesize priority;
-@synthesize name;
-@synthesize effectDescription;
-@synthesize iconName;
-@synthesize tintColor;
-
 
 - (void) setupProperties {
-    score = 25;
-    priority = 4;
-    name = @"Ice";
-    effectDescription = @"Deactivates opponent's action card in this column.";
-    iconName = @"Ice";
-    tintColor = [UIColor colorWithRed:0.32 green:0.86 blue:1.0 alpha:1.0];
+    _score = 25;
+    _priority = 4;
+    _name = @"Ice";
+    _effectDescription = @"Deactivates opponent's action card in this column.";
+    _iconName = @"Ice";
+    _tintColor = [UIColor colorWithRed:0.32 green:0.86 blue:1.0 alpha:1.0];
 }
 
 - (instancetype)init
