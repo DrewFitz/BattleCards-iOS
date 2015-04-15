@@ -10,6 +10,8 @@
 #import "GridSlotView.h"
 #import "GameCardView.h"
 
+#define HAND_CARDS (3)
+
 @interface BattleViewController ()
 @property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *downSwipeRecognizer;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapRecognizer;
@@ -19,7 +21,7 @@
 
 @implementation BattleViewController {
     GridSlotView* gridSlotViews[16];
-    GridSlotView* handSlotViews[5];
+    GridSlotView* handSlotViews[HAND_CARDS];
     
     GridSlotView* hilightedSlot;
     GridSlotView* oldSlot;
@@ -38,7 +40,7 @@
     float minDistance = powf(95.0, 2);
     GridSlotView* closestSlot = nil;
     
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < HAND_CARDS; i++) {
         GridSlotView* slot = handSlotViews[i];
         GameCardView* view = (GameCardView*) slot.targetView;
         if (view == nil) {
@@ -58,6 +60,12 @@
     for (int i = 8; i < 16; i++) {
         GridSlotView* slot = gridSlotViews[i];
         
+        GameBoardRow row = slot.gridY == 2 ? GameBoardRowAction : GameBoardRowScore;
+        GameBoardSlotState state = [[GameBoard sharedBoard] getStateForPlayer:GameBoardPlayerLocal inRow:row slot:slot.gridX];
+        
+        if (state == GameBoardSlotStateActive) {
+            continue;
+        }
         
         GameCardView* view = (GameCardView*) slot.targetView;
         if (view == nil) {
@@ -81,7 +89,7 @@
 }
 
 -(void)drawHand {
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < HAND_CARDS; i++) {
         UIView* view = handSlotViews[i].targetView;
         if (view) {
             [view removeFromSuperview];
@@ -89,7 +97,7 @@
         }
     }
     
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < HAND_CARDS; i++) {
         GameCard* card = [[GameBoard sharedBoard] drawCard];
         GameCardView* cardView = [[GameCardView alloc] init];
         [self.view addSubview:cardView];
@@ -285,7 +293,7 @@
             [view setBackgroundColor:inactiveBackgroundColor];
         }
         
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < HAND_CARDS; i++) {
             GridSlotView* view = handSlotViews[i];
             float distance = powf(touchLocation.x - view.center.x, 2) + powf(touchLocation.y - view.center.y, 2);
             if (distance < minDistance) {
@@ -393,7 +401,7 @@
     
     int boardWidth  = width*4  + gutter*3;
 //    int boardHeight = height*4 + gutter*3 + (verticalSpacer + gutter);
-    int handWidth   = width*5 + gutter*4;
+    int handWidth   = width*(HAND_CARDS) + gutter*(HAND_CARDS - 1);
     
     int topGutter  = 20;
     int sideGutter = (viewWidth - boardWidth) / 2;
@@ -417,7 +425,7 @@
     int y = topGutter + 2 * height + 2 * gutter;
     [spacerView setFrame:CGRectMake(0, y, viewWidth, verticalSpacer)];
     
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < HAND_CARDS; i++) {
         GridSlotView* view = handSlotViews[i];
         
         int i = view.gridX;
@@ -450,7 +458,7 @@
     [spacerView setBackgroundColor:[UIColor colorWithWhite:0.9 alpha:1.0]];
     [self.view addSubview:spacerView];
     
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < HAND_CARDS; i++) {
         GridSlotView* newHandSlot = [[GridSlotView alloc] init];
         [newHandSlot setBackgroundColor:slotBackgroundColor];
         newHandSlot.gridX = i;
