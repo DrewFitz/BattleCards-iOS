@@ -14,5 +14,6 @@
 #import "HeartCard.h"
 #import "BombCard.h"
 #import "IceCard.h"
+#import "MirrorCard.h"
 
 #endif

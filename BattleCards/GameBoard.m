@@ -53,7 +53,8 @@
                     [LightningCard class],
                     [HeartCard class],
                     [BombCard class],
-                    [IceCard class]];
+                    [IceCard class],
+                    [MirrorCard class]];
 }
 
 -(int) getOffsetWithPlayer:(GameBoardPlayer)player row:(GameBoardRow)row {
