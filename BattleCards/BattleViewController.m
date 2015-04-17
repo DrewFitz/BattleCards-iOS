@@ -10,6 +10,7 @@
 #import "GridSlotView.h"
 #import "GameCardView.h"
 #import "AnimationCoordinator_InternalAccess.h"
+#import "NullCard.h"
 
 @interface BattleViewController ()
 @property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *downSwipeRecognizer;
@@ -32,6 +33,8 @@
     UITouch* draggingTouch;
     
     NSMutableArray* pendingAnimations;
+    
+    BOOL _shouldShowOpponentActions;
 }
 
 
@@ -159,7 +162,12 @@
         GameBoardSlotState state = [board getStateForPlayer:GameBoardPlayerOpponent inRow:GameBoardRowAction slot:i%4];
         if (state != GameBoardSlotStateEmpty) {
             GameCardView* view = [[GameCardView alloc] init];
-            GameCard* card = [board getCardForPlayer:GameBoardPlayerOpponent inRow:GameBoardRowAction slot:i%4];
+            GameCard* card;
+            if (_shouldShowOpponentActions || state == GameboardSlotStateInactive) {
+                card = [board getCardForPlayer:GameBoardPlayerOpponent inRow:GameBoardRowAction slot:i%4];
+            } else {
+                card = [[NullCard alloc] init];
+            }
             [view setGameCard:card];
             [view showIcon];
             [view setActive:state == GameBoardSlotStateActive];
@@ -473,6 +481,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _shouldShowOpponentActions = NO;
     
     [self.turnBlockingView setHidden:YES];
     
