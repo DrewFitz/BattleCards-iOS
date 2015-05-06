@@ -16,6 +16,7 @@
 
 @property (nonatomic) NSString* matchID;
 @property (nonatomic) NSArray* players;
+@property (nonatomic) BOOL completed;
 
 // load this match's data into the global gameplay objects
 -(void)makeActiveMatch;

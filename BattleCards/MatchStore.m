@@ -17,6 +17,8 @@
 
 @implementation MatchStore
 
+#pragma mark - Singleton
+
 +(MatchStore *)sharedStore {
     static MatchStore* store = nil;
     if (store == nil) {
@@ -28,12 +30,13 @@
 -(instancetype)init {
     self = [super init];
     if (self) {
-        // TODO: load from file
         self.localMatches = [[NSMutableArray alloc] init];
         self.remoteMatches = [[NSMutableArray alloc] init];
     }
     return self;
 }
+
+#pragma mark - Data Access
 
 -(LocalMatch*)createLocalMatch {
     LocalMatch* localMatch = [[LocalMatch alloc] init];
@@ -59,6 +62,63 @@
     return [self.localMatches objectAtIndex:index];
 }
 
+-(NSArray*)getInProgressLocalMatches {
+    __block NSMutableArray* inProgressMatches = [[NSMutableArray alloc] init];
+    [self.localMatches enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        LocalMatch* match = (LocalMatch*) obj;
+        if (match.completed == NO) {
+            [inProgressMatches addObject:match];
+        }
+    }];
+    
+    return inProgressMatches;
+}
+
+-(NSArray*)getCompletedLocalMatches {
+    __block NSMutableArray* completedMatches = [[NSMutableArray alloc] init];
+    [self.localMatches enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        LocalMatch* match = (LocalMatch*) obj;
+        if (match.completed == YES) {
+            [completedMatches addObject:match];
+        }
+    }];
+    
+    return completedMatches;
+}
+
+-(LocalMatch*)getInProgressLocalMatchAtIndex:(NSUInteger)index {
+    NSArray* inProgressMatches = [self getInProgressLocalMatches];
+    return [inProgressMatches objectAtIndex:index];
+}
+
+-(LocalMatch*)getCompletedLocalMatchAtIndex:(NSUInteger)index {
+    NSArray* completedMatches = [self getCompletedLocalMatches];
+    return [completedMatches objectAtIndex:index];
+}
+
+-(NSUInteger)localMatchCount {
+    return [self.localMatches count];
+}
+-(NSUInteger)inProgressLocalMatchCount {
+    return [[self getInProgressLocalMatches] count];
+}
+-(NSUInteger)completedLocalMatchCount {
+    return [[self getCompletedLocalMatches] count];
+}
+
+-(NSUInteger)remoteMatchCount {
+    return [self.remoteMatches count];
+}
+-(NSUInteger)inProgressRemoteMatchCount {
+    return 0; // TODO
+}
+-(NSUInteger)completedRemoteMatchCount {
+    return 0; // TODO
+}
+
+-(NSUInteger)matchCount {
+    return [self.remoteMatches count] + [self.localMatches count];
+}
 
 #pragma mark - Archiving methods
 
@@ -96,16 +156,6 @@
     } else {
         NSLog(@"archive failed");
     }
-}
-
--(NSUInteger)localMatchCount {
-    return [self.localMatches count];
-}
--(NSUInteger)remoteMatchCount {
-    return [self.remoteMatches count];
-}
--(NSUInteger)matchCount {
-    return [self.remoteMatches count] + [self.localMatches count];
 }
 
 @end

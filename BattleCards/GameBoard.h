@@ -44,6 +44,7 @@ typedef enum : NSInteger {
 
 -(void)gameBoardDidChange:(GameBoard*)board;
 -(void)gameBoard:(GameBoard*)board didActivateCard:(GameCard*)card forPlayer:(GameBoardPlayer)player inSlot:(int)slot;
+-(void)gameBoardDidEndGame:(GameBoard*)board;
 
 @end
 
@@ -52,6 +53,7 @@ typedef enum : NSInteger {
 
 @property (nonatomic) GameBoardTurnOrder turnOrder;
 @property (weak, nonatomic) id<GameBoardDelegate> delegate;
+@property (nonatomic) GameBoardPlayer winner;
 
 + (instancetype)sharedBoard;
 

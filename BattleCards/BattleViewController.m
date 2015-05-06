@@ -577,6 +577,10 @@
 
 #pragma mark - GameBoardDelegate Protocol
 
+-(void)gameBoardDidEndGame:(GameBoard *)board {
+    _match.completed = YES;
+}
+
 -(void)gameBoard:(GameBoard *)board didActivateCard:(GameCard *)card forPlayer:(GameBoardPlayer)player inSlot:(int)slot {
     AnimationCoordinator* ac = [[AnimationCoordinator alloc] init];
     
@@ -601,6 +605,9 @@
 
 -(void)gameCardViewTapped:(GameCardView *)sender {
     if (![self.cardInfoView isHidden]) {
+        return;
+    }
+    if (![self.turnBlockingView isHidden]) {
         return;
     }
     

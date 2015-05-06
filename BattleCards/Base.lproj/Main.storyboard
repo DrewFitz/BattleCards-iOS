@@ -17,6 +17,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxL-aE-J3F" userLabel="Turn Blocking View">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pass Device to Opponent and tap to continue." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCs-Gp-XCs">
+                                        <rect key="frame" x="123" y="290" width="355" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="dCs-Gp-XCs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hxL-aE-J3F" secondAttribute="leading" constant="50" id="9KF-F4-FgT"/>
+                                    <constraint firstItem="dCs-Gp-XCs" firstAttribute="top" relation="greaterThanOrEqual" secondItem="hxL-aE-J3F" secondAttribute="top" constant="50" id="9yj-HU-q8Z"/>
+                                    <constraint firstAttribute="centerX" secondItem="dCs-Gp-XCs" secondAttribute="centerX" id="HM1-vt-o29"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dCs-Gp-XCs" secondAttribute="trailing" constant="50" id="kLa-Rk-sVn"/>
+                                    <constraint firstAttribute="centerY" secondItem="dCs-Gp-XCs" secondAttribute="centerY" id="mnf-kI-Ei7"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="dCs-Gp-XCs" secondAttribute="bottom" constant="50" id="rB1-Kk-vXO"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="PMe-BY-vpG" appends="YES" id="xW5-xF-qMr"/>
+                                </connections>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cxb-un-IaQ" userLabel="Card Info View" customClass="CardInfoView">
                                 <rect key="frame" x="0.0" y="205" width="600" height="190"/>
                                 <subviews>
@@ -77,26 +100,6 @@
                                     <outletCollection property="gestureRecognizers" destination="rrZ-Ee-Sjf" appends="YES" id="eP0-cP-Jfa"/>
                                 </connections>
                             </view>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxL-aE-J3F" userLabel="Turn Blocking View">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pass Device to Opponent and tap to continue." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCs-Gp-XCs">
-                                        <rect key="frame" x="123" y="290" width="355" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="dCs-Gp-XCs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hxL-aE-J3F" secondAttribute="leading" constant="50" id="9KF-F4-FgT"/>
-                                    <constraint firstItem="dCs-Gp-XCs" firstAttribute="top" relation="greaterThanOrEqual" secondItem="hxL-aE-J3F" secondAttribute="top" constant="50" id="9yj-HU-q8Z"/>
-                                    <constraint firstAttribute="centerX" secondItem="dCs-Gp-XCs" secondAttribute="centerX" id="HM1-vt-o29"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dCs-Gp-XCs" secondAttribute="trailing" constant="50" id="kLa-Rk-sVn"/>
-                                    <constraint firstAttribute="centerY" secondItem="dCs-Gp-XCs" secondAttribute="centerY" id="mnf-kI-Ei7"/>
-                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="dCs-Gp-XCs" secondAttribute="bottom" constant="50" id="rB1-Kk-vXO"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -110,7 +113,6 @@
                             <constraint firstAttribute="centerY" secondItem="hxL-aE-J3F" secondAttribute="centerY" id="uNa-Iy-ldg"/>
                         </constraints>
                         <connections>
-                            <outletCollection property="gestureRecognizers" destination="PMe-BY-vpG" appends="YES" id="WLp-Fc-wgy"/>
                             <outletCollection property="gestureRecognizers" destination="xbj-Ms-hsd" appends="YES" id="7j7-MG-JBP"/>
                         </connections>
                     </view>
@@ -125,7 +127,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer delaysTouchesBegan="YES" id="PMe-BY-vpG">
+                <tapGestureRecognizer cancelsTouchesInView="NO" delaysTouchesEnded="NO" id="PMe-BY-vpG" userLabel="Blocking Tap Gesture Recognizer">
                     <connections>
                         <action selector="blockingTapEvent:" destination="BV1-FR-VrT" id="N93-rw-07D"/>
                     </connections>
@@ -207,7 +209,7 @@
         <!--Completed Games-->
         <scene sceneID="jA3-zC-6iN">
             <objects>
-                <tableViewController title="Completed Games" id="Bx3-Xh-MTq" sceneMemberID="viewController">
+                <tableViewController title="Completed Games" id="Bx3-Xh-MTq" customClass="CompletedGamesViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="2dc-hx-fTu">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -300,6 +302,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Cnf-hA-QYs"/>
+        <segue reference="P7i-KJ-irs"/>
     </inferredMetricsTieBreakers>
 </document>

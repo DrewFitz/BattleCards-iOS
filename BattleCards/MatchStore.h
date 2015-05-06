@@ -19,14 +19,22 @@
 -(void)deleteLocalMatch:(LocalMatch*)match;
 //-(void)deleteRemoteMatch:(RemoteMatch*)match;
 
--(LocalMatch*)getLocalMatchAtIndex:(NSUInteger)index;
+//-(LocalMatch*)getLocalMatchAtIndex:(NSUInteger)index;
+-(LocalMatch*)getInProgressLocalMatchAtIndex:(NSUInteger)index;
+-(LocalMatch*)getCompletedLocalMatchAtIndex:(NSUInteger)index;
 //-(RemoteMatch*)getRemoteMatchAtIndex:(NSUInteger)index;
+
+//-(NSUInteger)localMatchCount;
+-(NSUInteger)inProgressLocalMatchCount;
+-(NSUInteger)completedLocalMatchCount;
+
+//-(NSUInteger)remoteMatchCount;
+-(NSUInteger)inProgressRemoteMatchCount;
+-(NSUInteger)completedRemoteMatchCount;
+
+//-(NSUInteger)matchCount;
 
 -(void)loadFromArchive;
 -(void)archiveToFile;
-
--(NSUInteger)localMatchCount;
--(NSUInteger)remoteMatchCount;
--(NSUInteger)matchCount;
 
 @end

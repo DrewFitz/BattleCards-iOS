@@ -144,6 +144,54 @@
     return dirty;
 }
 
+-(void) determineWinner {
+    int localScore = 0;
+    int opponentScore = 0;
+    
+    for (int i = 0; i < 4; i++) {
+        localScore += [self getCardForPlayer:GameBoardPlayerLocal inRow:GameBoardRowScore slot:i].score;
+        opponentScore += [self getCardForPlayer:GameBoardPlayerOpponent inRow:GameBoardRowScore slot:i].score;
+    }
+    
+    if (_turnOrder == GameBoardTurnOrderLocalFirst) {
+        if (localScore > opponentScore) {
+            NSLog(@"player 1 wins");
+            _winner = GameBoardPlayerLocal;
+        } else {
+            NSLog(@"player 2 wins");
+            _winner = GameBoardPlayerOpponent;
+        }
+    } else {
+        if (localScore > opponentScore) {
+            NSLog(@"player 2 wins");
+            _winner = GameBoardPlayerLocal;
+        } else {
+            NSLog(@"player 1 wins");
+            _winner = GameBoardPlayerOpponent;
+        }
+    }
+}
+
+-(void) checkForEndgame {
+    BOOL emptySpaceExists = NO;
+    for (int i = 0; i < 16; i++) {
+        GameBoardSlotState state = gameBoardStates[i];
+        if (state == GameBoardSlotStateEmpty) {
+            emptySpaceExists = YES;
+        }
+    }
+    
+    if (emptySpaceExists == NO) {
+        // game is over
+        
+        // determine winner
+        [self determineWinner];
+        
+        // tell delegate that game is over
+        [_delegate gameBoardDidEndGame:self];
+    }
+}
+
 -(void)resolveBoard {
     // allow cards to update state
     BOOL wasDirty = NO;
@@ -174,6 +222,8 @@
                 break;
         }
     }
+    
+    [self checkForEndgame];
 }
 
 

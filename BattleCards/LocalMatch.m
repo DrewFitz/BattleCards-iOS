@@ -18,6 +18,7 @@
     self = [super init];
     if (self) {
         currentTurnOrder = GameBoardTurnOrderLocalFirst;
+        _completed = NO;
     }
     return self;
 }
@@ -59,6 +60,7 @@
         self.matchID = [aDecoder decodeObjectForKey:@"matchID"];
         boardData = [aDecoder decodeObjectForKey:@"boardData"];
         currentTurnOrder = [aDecoder decodeIntegerForKey:@"currentTurnOrder"];
+        _completed = [aDecoder decodeBoolForKey:@"completed"];
     }
     return self;
 }
@@ -67,6 +69,7 @@
     [aCoder encodeObject:self.matchID forKey:@"matchID"];
     [aCoder encodeObject:boardData forKey:@"boardData"];
     [aCoder encodeInteger:currentTurnOrder forKey:@"currentTurnOrder"];
+    [aCoder encodeBool:_completed forKey:@"completed"];
 }
 
 @end

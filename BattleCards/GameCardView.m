@@ -58,7 +58,6 @@
     self.scoreView.alpha = 0.0;
     
     UITapGestureRecognizer* tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(wasTapped)];
-    tapGR.delaysTouchesBegan = YES;
     [self addGestureRecognizer:tapGR];
 }
 
