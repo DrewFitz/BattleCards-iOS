@@ -13,7 +13,7 @@
 
 
 - (void) setupProperties {
-    _score = 25;
+    _score = 10;
     _priority = 4;
     _name = @"Ice";
     _effectDescription = @"Deactivates opponent's action card in this column.";

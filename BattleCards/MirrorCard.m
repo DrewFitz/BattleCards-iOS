@@ -11,21 +11,13 @@
 
 @implementation MirrorCard
 
-@synthesize score;
-@synthesize priority;
-@synthesize name;
-@synthesize effectDescription;
-@synthesize iconName;
-@synthesize tintColor;
-
-
 - (void) setupProperties {
-    score = 30;
-    priority = 3;
-    name = @"Mirror";
-    effectDescription = @"When your cards are destroyed, destroy the opponent's cards in the same columns.";
-    iconName = @"Mirror";
-    tintColor = [UIColor colorWithRed:0.72 green:0.86 blue:1.0 alpha:1.0];
+    _score = 5;
+    _priority = 3;
+    _name = @"Mirror";
+    _effectDescription = @"When your cards are destroyed, destroy the opponent's cards in the same columns.";
+    _iconName = @"Mirror";
+    _tintColor = [UIColor colorWithRed:0.72 green:0.86 blue:1.0 alpha:1.0];
 }
 
 - (instancetype)init

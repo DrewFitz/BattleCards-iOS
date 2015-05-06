@@ -12,7 +12,7 @@
 @implementation LightningCard
 
 - (void) setupProperties {
-    _score = 5;
+    _score = 25;
     _priority = 2;
     _name = @"Lightning";
     _effectDescription = @"Destroy the opponent's score card in this column.";

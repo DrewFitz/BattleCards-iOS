@@ -8,6 +8,7 @@
 
 #import "BattleViewController.h"
 #import "GridSlotView.h"
+#import "CardInfoView.h"
 #import "GameCardView.h"
 #import "AnimationCoordinator_InternalAccess.h"
 #import "NullCard.h"
@@ -18,6 +19,7 @@
 @property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *downSwipeRecognizer;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapRecognizer;
 @property (strong, nonatomic) IBOutlet UIPinchGestureRecognizer *pinchRecognizer;
+@property (weak, nonatomic) IBOutlet CardInfoView *cardInfoView;
 
 @end
 
@@ -106,6 +108,7 @@
     for (int i = 0; i < HAND_CARDS; i++) {
         GameCard* card = [[GameBoard sharedBoard] drawCard];
         GameCardView* cardView = [[GameCardView alloc] init];
+        cardView.delegate = self;
         [self.view addSubview:cardView];
         [cardView setGameCard:card];
         [handSlotViews[i] setTargetView:cardView];
@@ -158,6 +161,7 @@
         GameBoardSlotState state = [board getStateForPlayer:GameBoardPlayerOpponent inRow:GameBoardRowScore slot:i%4];
         if (state != GameBoardSlotStateEmpty) {
             GameCardView* view = [[GameCardView alloc] init];
+            view.delegate = self;
             GameCard* card = [board getCardForPlayer:GameBoardPlayerOpponent inRow:GameBoardRowScore slot:i%4];
             [view setGameCard:card];
             [view showScore];
@@ -170,6 +174,7 @@
         GameBoardSlotState state = [board getStateForPlayer:GameBoardPlayerOpponent inRow:GameBoardRowAction slot:i%4];
         if (state != GameBoardSlotStateEmpty) {
             GameCardView* view = [[GameCardView alloc] init];
+            view.delegate = self;
             GameCard* card;
             if (_shouldShowOpponentActions || state == GameboardSlotStateInactive) {
                 card = [board getCardForPlayer:GameBoardPlayerOpponent inRow:GameBoardRowAction slot:i%4];
@@ -188,6 +193,7 @@
         GameBoardSlotState state = [board getStateForPlayer:GameBoardPlayerLocal inRow:GameBoardRowAction slot:i%4];
         if (state != GameBoardSlotStateEmpty) {
             GameCardView* view = [[GameCardView alloc] init];
+            view.delegate = self;
             GameCard* card = [board getCardForPlayer:GameBoardPlayerLocal inRow:GameBoardRowAction slot:i%4];
             [view setGameCard:card];
             [view showIcon];
@@ -201,6 +207,7 @@
         GameBoardSlotState state = [board getStateForPlayer:GameBoardPlayerLocal inRow:GameBoardRowScore slot:i%4];
         if (state != GameBoardSlotStateEmpty) {
             GameCardView* view = [[GameCardView alloc] init];
+            view.delegate = self;
             GameCard* card = [board getCardForPlayer:GameBoardPlayerLocal inRow:GameBoardRowScore slot:i%4];
             [view setGameCard:card];
             [view showScore];
@@ -211,7 +218,12 @@
 }
 
 -(void)playPendingAnimations {
-    
+    //TODO
+}
+
+-(void)startTurn {
+    [self reloadBoard];
+    [self drawHand];
 }
 
 -(void)endTurn {
@@ -224,6 +236,15 @@
     // show changes
     [self playPendingAnimations];
     
+    // show blocking view for player change
+    [self showBlockingView];
+}
+
+#pragma mark - Accessory View Functions
+
+-(void) showBlockingView {
+    int playerNumber = [GameBoard sharedBoard].turnOrder == GameBoardTurnOrderLocalFirst ? 1 : 2;
+    self.turnPassMessageLabel.text = [NSString stringWithFormat:@"Pass Device to Player %d and tap to continue.", playerNumber];
     [self.turnBlockingView setHidden:NO];
     [self.view bringSubviewToFront:self.turnBlockingView];
     [UIView animateWithDuration:0.2 animations:^{
@@ -231,11 +252,43 @@
     }];
     
     [self.tapRecognizer setEnabled:YES];
+    
 }
 
--(void)startTurn {
-    [self reloadBoard];
-    [self drawHand];
+-(void) dismissBlockingView {
+    [self.tapRecognizer setEnabled:NO];
+    [UIView animateWithDuration:0.2 animations:^{
+        self.turnBlockingView.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [self.turnBlockingView setHidden:YES];
+        [self startTurn];
+    }];
+}
+
+-(void) showInfoView:(GameCard*)card {
+    [self.cardInfoView setCard:card];
+    
+    [self.view bringSubviewToFront:self.cardInfoView];
+    
+    [self.cardInfoView setHidden:NO];
+    
+    self.cardInfoView.alpha = 0.0;
+    [UIView animateWithDuration:0.15 animations:^{
+        self.cardInfoView.alpha = 1.0;
+    }];
+    
+    [self.infoTapGestureRecognizer setEnabled:YES];
+}
+
+-(void) dismissInfoView {
+    self.cardInfoView.alpha = 1.0;
+    [UIView animateWithDuration:0.15 animations:^{
+        self.cardInfoView.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [self.cardInfoView setHidden:YES];
+    }];
+    
+    [self.infoTapGestureRecognizer setEnabled:NO];
 }
 
 
@@ -252,18 +305,20 @@
     [self endTurn];
 }
 
-- (IBAction)tapEvent:(id)sender {
-    [self.tapRecognizer setEnabled:NO];
-    [UIView animateWithDuration:0.2 animations:^{
-        self.turnBlockingView.alpha = 0.0;
-    } completion:^(BOOL finished) {
-        [self.turnBlockingView setHidden:YES];
-        [self startTurn];
-    }];
+- (IBAction)blockingTapEvent:(id)sender {
+    [self dismissBlockingView];
+}
+
+- (IBAction)infoTapEvent:(id)sender {
+    [self dismissInfoView];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     if (draggingTouch != nil) {
+        return;
+    }
+    
+    if (self.infoTapGestureRecognizer.enabled == YES) {
         return;
     }
     
@@ -476,6 +531,7 @@
     [spacerView setBackgroundColor:[UIColor colorWithWhite:0.9 alpha:1.0]];
     [self.view addSubview:spacerView];
     
+    // create hand slots
     for (int i = 0; i < HAND_CARDS; i++) {
         GridSlotView* newHandSlot = [[GridSlotView alloc] init];
         [newHandSlot setBackgroundColor:slotBackgroundColor];
@@ -493,6 +549,8 @@
     _shouldShowOpponentActions = NO;
     
     [self.turnBlockingView setHidden:YES];
+    [self.cardInfoView setHidden:YES];
+    [self.infoTapGestureRecognizer setEnabled:NO];
     
     self.downSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(downSwipeEvent:)];
     [self.downSwipeRecognizer setDirection:UISwipeGestureRecognizerDirectionDown];
@@ -537,6 +595,17 @@
     void(^animBlock)() = [card animationBlockWithCoordinator:ac];
     
     [pendingAnimations addObject:animBlock];
+}
+
+#pragma mark - GameCardViewDelegate Protocol
+
+-(void)gameCardViewTapped:(GameCardView *)sender {
+    if (![self.cardInfoView isHidden]) {
+        return;
+    }
+    
+    GameCard* card = [sender getGameCard];
+    [self showInfoView:card];
 }
 
 @end

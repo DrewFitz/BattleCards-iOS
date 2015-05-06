@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ls2-5w-UAt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ls2-5w-UAt">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Battle-->
@@ -16,6 +17,66 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cxb-un-IaQ" userLabel="Card Info View" customClass="CardInfoView">
+                                <rect key="frame" x="0.0" y="205" width="600" height="190"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kkJ-fv-tg2">
+                                        <rect key="frame" x="20" y="20" width="100" height="100"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="kkJ-fv-tg2" secondAttribute="height" multiplier="1:1" id="Mak-rA-7QH"/>
+                                            <constraint firstAttribute="width" constant="100" id="xk2-Bf-4n5"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Card Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qj-jL-h5k">
+                                        <rect key="frame" x="128" y="56" width="111" height="27"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Card Score" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QyF-ef-Nmn">
+                                        <rect key="frame" x="128" y="91" width="87" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Card Description" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S95-YL-Dsv">
+                                        <rect key="frame" x="128" y="120" width="130" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to dismiss." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="POO-zW-bgn" userLabel="dismiss text">
+                                        <rect key="frame" x="242" y="149" width="116" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstItem="9qj-jL-h5k" firstAttribute="centerY" secondItem="kkJ-fv-tg2" secondAttribute="centerY" constant="-0.5" id="ARg-lH-Cip"/>
+                                    <constraint firstItem="kkJ-fv-tg2" firstAttribute="leading" secondItem="Cxb-un-IaQ" secondAttribute="leading" constant="20" symbolic="YES" id="IUd-21-RM9"/>
+                                    <constraint firstAttribute="bottom" secondItem="POO-zW-bgn" secondAttribute="bottom" constant="20" symbolic="YES" id="Kd1-qX-hmy"/>
+                                    <constraint firstItem="kkJ-fv-tg2" firstAttribute="top" secondItem="Cxb-un-IaQ" secondAttribute="top" constant="20" symbolic="YES" id="PqU-3o-Jwh"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="S95-YL-Dsv" secondAttribute="trailing" constant="20" symbolic="YES" id="Rsb-2j-Ex4"/>
+                                    <constraint firstItem="9qj-jL-h5k" firstAttribute="leading" secondItem="kkJ-fv-tg2" secondAttribute="trailing" constant="8" id="S7o-x3-Irb"/>
+                                    <constraint firstItem="QyF-ef-Nmn" firstAttribute="top" secondItem="9qj-jL-h5k" secondAttribute="bottom" constant="8" id="TTm-Zp-sUt"/>
+                                    <constraint firstItem="QyF-ef-Nmn" firstAttribute="leading" secondItem="9qj-jL-h5k" secondAttribute="leading" id="YN7-6t-Zbb"/>
+                                    <constraint firstItem="QyF-ef-Nmn" firstAttribute="leading" secondItem="S95-YL-Dsv" secondAttribute="leading" id="at3-TV-MJu"/>
+                                    <constraint firstItem="POO-zW-bgn" firstAttribute="top" secondItem="S95-YL-Dsv" secondAttribute="bottom" constant="8" symbolic="YES" id="jFl-pT-GV2"/>
+                                    <constraint firstAttribute="centerX" secondItem="POO-zW-bgn" secondAttribute="centerX" id="mz3-ER-hFN"/>
+                                    <constraint firstItem="S95-YL-Dsv" firstAttribute="top" secondItem="QyF-ef-Nmn" secondAttribute="bottom" constant="8" id="nJi-hY-u4L"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="cardNameLabel" destination="9qj-jL-h5k" id="uN6-ad-X3c"/>
+                                    <outlet property="descriptionLabel" destination="S95-YL-Dsv" id="IUT-JF-PRw"/>
+                                    <outlet property="iconImageView" destination="kkJ-fv-tg2" id="uGn-SB-T7y"/>
+                                    <outlet property="pointsLabel" destination="QyF-ef-Nmn" id="eZG-el-VU9"/>
+                                    <outletCollection property="gestureRecognizers" destination="rrZ-Ee-Sjf" appends="YES" id="eP0-cP-Jfa"/>
+                                </connections>
+                            </view>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxL-aE-J3F" userLabel="Turn Blocking View">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
@@ -40,9 +101,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstAttribute="centerX" secondItem="Cxb-un-IaQ" secondAttribute="centerX" id="NId-kf-0HU"/>
                             <constraint firstAttribute="width" secondItem="hxL-aE-J3F" secondAttribute="width" id="Ovt-wg-aWV"/>
                             <constraint firstAttribute="centerX" secondItem="hxL-aE-J3F" secondAttribute="centerX" id="QkB-My-6xb"/>
                             <constraint firstAttribute="height" secondItem="hxL-aE-J3F" secondAttribute="height" id="Y9l-AC-pMq"/>
+                            <constraint firstAttribute="centerY" secondItem="Cxb-un-IaQ" secondAttribute="centerY" id="Zpl-FQ-8z4"/>
+                            <constraint firstAttribute="width" secondItem="Cxb-un-IaQ" secondAttribute="width" id="gVI-Dl-m0z"/>
                             <constraint firstAttribute="centerY" secondItem="hxL-aE-J3F" secondAttribute="centerY" id="uNa-Iy-ldg"/>
                         </constraints>
                         <connections>
@@ -52,15 +116,18 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="cardInfoView" destination="Cxb-un-IaQ" id="fzo-YH-dxT"/>
+                        <outlet property="infoTapGestureRecognizer" destination="rrZ-Ee-Sjf" id="PKH-qq-GmO"/>
                         <outlet property="pinchRecognizer" destination="xbj-Ms-hsd" id="K5c-5H-d14"/>
                         <outlet property="tapRecognizer" destination="PMe-BY-vpG" id="xhw-bX-m7J"/>
                         <outlet property="turnBlockingView" destination="hxL-aE-J3F" id="v2T-bu-elR"/>
+                        <outlet property="turnPassMessageLabel" destination="dCs-Gp-XCs" id="aEi-fP-ZyT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer delaysTouchesBegan="YES" id="PMe-BY-vpG">
                     <connections>
-                        <action selector="tapEvent:" destination="BV1-FR-VrT" id="wVy-Zo-Psn"/>
+                        <action selector="blockingTapEvent:" destination="BV1-FR-VrT" id="N93-rw-07D"/>
                     </connections>
                 </tapGestureRecognizer>
                 <pinchGestureRecognizer id="xbj-Ms-hsd">
@@ -68,6 +135,11 @@
                         <action selector="pinchEvent:" destination="BV1-FR-VrT" id="vCn-hb-DOh"/>
                     </connections>
                 </pinchGestureRecognizer>
+                <tapGestureRecognizer id="rrZ-Ee-Sjf" userLabel="Info Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="infoTapEvent:" destination="BV1-FR-VrT" id="Rt6-ac-7Af"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2109" y="1164"/>
         </scene>

@@ -18,6 +18,10 @@
     BOOL iconToggle;
 }
 
+-(void) wasTapped {
+    [self.delegate gameCardViewTapped:self];
+}
+
 -(void) setupViews {
     self.backgroundColor = [UIColor whiteColor];
     
@@ -52,7 +56,12 @@
     
     iconToggle = YES;
     self.scoreView.alpha = 0.0;
+    
+    UITapGestureRecognizer* tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(wasTapped)];
+    tapGR.delaysTouchesBegan = YES;
+    [self addGestureRecognizer:tapGR];
 }
+
 
 - (instancetype)initWithFrame:(CGRect)frame
 {

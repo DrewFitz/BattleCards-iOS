@@ -14,7 +14,7 @@
 @implementation HeartCard
 
 - (void) setupProperties {
-    _score = 10;
+    _score = 20;
     _priority = 1;
     _name = @"Heart";
     _effectDescription = @"Protect your score card in this column from destruction.";

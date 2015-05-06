@@ -13,7 +13,7 @@
 
 
 - (void) setupProperties {
-    _score = 50;
+    _score = 5;
     _priority = 5;
     _name = @"Bomb";
     _effectDescription = @"Destroys all score cards in this and adjacent columns. Always activates when played";
