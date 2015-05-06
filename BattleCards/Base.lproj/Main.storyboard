@@ -193,7 +193,7 @@
         <scene sceneID="IrO-Bh-cgU">
             <objects>
                 <navigationController id="a7w-qV-3af" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Playing" id="Dcy-Zz-i2u"/>
+                    <tabBarItem key="tabBarItem" title="Playing" image="InProgressTab" id="Dcy-Zz-i2u"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ASv-yi-dlC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -248,7 +248,7 @@
         <scene sceneID="PJw-Et-8kH">
             <objects>
                 <navigationController id="4Mq-kd-Bbk" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Completed" id="hRG-0q-P0r"/>
+                    <tabBarItem key="tabBarItem" title="Completed" image="CompletedTab" id="hRG-0q-P0r"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="2l8-of-eP8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -274,7 +274,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Settings" id="LY7-IX-yv9"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="SettingsTab" id="LY7-IX-yv9"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jCQ-xD-8hy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -301,6 +301,11 @@
             <point key="canvasLocation" x="-488" y="1164"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="CompletedTab" width="25" height="25"/>
+        <image name="InProgressTab" width="25" height="25"/>
+        <image name="SettingsTab" width="25" height="25"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="P7i-KJ-irs"/>
     </inferredMetricsTieBreakers>
