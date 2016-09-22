@@ -34,6 +34,8 @@
 
 //-(NSUInteger)matchCount;
 
+-(void)clearStorage;
+
 -(void)loadFromArchive;
 -(void)archiveToFile;
 

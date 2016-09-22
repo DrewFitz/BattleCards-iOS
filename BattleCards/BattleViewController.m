@@ -20,6 +20,7 @@
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapRecognizer;
 @property (strong, nonatomic) IBOutlet UIPinchGestureRecognizer *pinchRecognizer;
 @property (weak, nonatomic) IBOutlet CardInfoView *cardInfoView;
+@property (weak, nonatomic) IBOutlet UILabel *winnerLabel;
 
 @end
 
@@ -221,9 +222,34 @@
     //TODO
 }
 
+-(void)hideHand {
+    for (int i = 0; i < HAND_CARDS; i++) {
+        [handSlotViews[i].targetView setHidden:YES];
+        [handSlotViews[i] setHidden:YES];
+    }
+}
+
+-(void)showWinner{
+    int winner = 0;
+    GameBoardPlayer w = [[GameBoard sharedBoard] winner];
+    if ([[GameBoard sharedBoard] turnOrder] == GameBoardTurnOrderLocalFirst) {
+        winner = w == GameBoardPlayerLocal ? 1 : 2;
+    } else {
+        winner = w == GameBoardPlayerLocal ? 2 : 1;
+    }
+    self.winnerLabel.text = [NSString stringWithFormat:@"Player %d wins", winner];
+    [self.winnerLabel setHidden:NO];
+}
+
 -(void)startTurn {
     [self reloadBoard];
-    [self drawHand];
+    if (_match.completed) {
+        [self hideHand];
+        [self showWinner];
+        [self.downSwipeRecognizer setEnabled:NO];
+    } else {
+        [self drawHand];
+    }
 }
 
 -(void)endTurn {
@@ -565,6 +591,7 @@
     [self.match makeActiveMatch];
     [GameBoard sharedBoard].delegate = self;
     
+    [self.winnerLabel setHidden:YES];
     [self startTurn];
 }
 

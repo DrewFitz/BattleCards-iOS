@@ -36,6 +36,7 @@
         [self clearBoard];
         self.turnOrder = GameBoardTurnOrderLocalFirst;
         [self loadCardClasses];
+        srand((unsigned int)time(NULL));
     }
     return self;
 }

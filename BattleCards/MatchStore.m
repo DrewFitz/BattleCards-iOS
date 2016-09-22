@@ -120,6 +120,16 @@
     return [self.remoteMatches count] + [self.localMatches count];
 }
 
+-(void)clearStorage {
+    self.localMatches = [[NSMutableArray alloc] init];
+    self.remoteMatches = [[NSMutableArray alloc] init];
+    
+    NSFileManager* manager = [NSFileManager defaultManager];
+    NSURL* docURL = [manager URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+    NSURL* archiveFile = [NSURL URLWithString:@"localMatchArchive" relativeToURL:docURL];
+    [[NSFileManager defaultManager] removeItemAtURL:archiveFile error:nil];
+}
+
 #pragma mark - Archiving methods
 
 -(void)loadFromArchive {

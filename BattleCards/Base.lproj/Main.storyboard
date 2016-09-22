@@ -17,6 +17,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player 1 Wins" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Nc-gS-S1G">
+                                <rect key="frame" x="247" y="571" width="105" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxL-aE-J3F" userLabel="Turn Blocking View">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
@@ -109,8 +115,10 @@
                             <constraint firstAttribute="centerX" secondItem="hxL-aE-J3F" secondAttribute="centerX" id="QkB-My-6xb"/>
                             <constraint firstAttribute="height" secondItem="hxL-aE-J3F" secondAttribute="height" id="Y9l-AC-pMq"/>
                             <constraint firstAttribute="centerY" secondItem="Cxb-un-IaQ" secondAttribute="centerY" id="Zpl-FQ-8z4"/>
+                            <constraint firstAttribute="centerX" secondItem="8Nc-gS-S1G" secondAttribute="centerX" id="ehL-hs-e6P"/>
                             <constraint firstAttribute="width" secondItem="Cxb-un-IaQ" secondAttribute="width" id="gVI-Dl-m0z"/>
                             <constraint firstAttribute="centerY" secondItem="hxL-aE-J3F" secondAttribute="centerY" id="uNa-Iy-ldg"/>
+                            <constraint firstItem="khH-OB-KpY" firstAttribute="top" secondItem="8Nc-gS-S1G" secondAttribute="bottom" constant="8" symbolic="YES" id="z8y-3d-ko3"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="xbj-Ms-hsd" appends="YES" id="7j7-MG-JBP"/>
@@ -124,6 +132,7 @@
                         <outlet property="tapRecognizer" destination="PMe-BY-vpG" id="xhw-bX-m7J"/>
                         <outlet property="turnBlockingView" destination="hxL-aE-J3F" id="v2T-bu-elR"/>
                         <outlet property="turnPassMessageLabel" destination="dCs-Gp-XCs" id="aEi-fP-ZyT"/>
+                        <outlet property="winnerLabel" destination="8Nc-gS-S1G" id="cUL-jl-3d1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
@@ -264,7 +273,7 @@
         <!--Settings-->
         <scene sceneID="DNY-vW-Pur">
             <objects>
-                <viewController title="Settings" id="ees-v2-IAA" userLabel="Settings" sceneMemberID="viewController">
+                <viewController title="Settings" id="ees-v2-IAA" userLabel="Settings" customClass="SettingsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vhE-3e-pVU"/>
                         <viewControllerLayoutGuide type="bottom" id="lD6-GF-Gkz"/>
@@ -272,7 +281,23 @@
                     <view key="view" contentMode="scaleToFill" id="yic-ie-c4l">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tnI-sj-h21">
+                                <rect key="frame" x="240" y="282" width="121" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Clear Storage">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="clearStorageAction:" destination="ees-v2-IAA" eventType="touchUpInside" id="wvC-23-x0b"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="tnI-sj-h21" secondAttribute="centerY" id="rPW-pr-ZJB"/>
+                            <constraint firstAttribute="centerX" secondItem="tnI-sj-h21" secondAttribute="centerX" id="tdT-bi-bOS"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" image="SettingsTab" id="LY7-IX-yv9"/>
                 </viewController>
